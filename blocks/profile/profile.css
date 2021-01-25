@@ -1,0 +1,7 @@
+.profile {
+    display: flex;
+    flex-direction: row;
+    margin: 40px auto 40px auto;
+    justify-content: flex-start;
+    align-items: center;
+}

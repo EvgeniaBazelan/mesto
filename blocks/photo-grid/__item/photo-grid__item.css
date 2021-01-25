@@ -1,0 +1,6 @@
+.photo-grid__item {
+    display: grid;
+    grid-template-areas: "image image" "text like";
+    border-radius: 10px;
+    background-color: white;
+}
