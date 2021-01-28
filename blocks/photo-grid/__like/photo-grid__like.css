@@ -3,3 +3,11 @@
     grid-area: like;
     margin: 30px 30px 30px auto;
 }
+
+.photo-grid__like:hover {
+    opacity: 0.5;
+}
+
+.photo-grid__like:active {
+    background-color: #000000;
+}

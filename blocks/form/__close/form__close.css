@@ -1,0 +1,9 @@
+.form__close {
+    max-height: 40px;
+    margin-top: -41px;
+    margin-left: 420px;
+}
+
+.form__close:hover {
+    opacity: 0.5;
+}
