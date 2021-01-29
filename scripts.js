@@ -15,6 +15,7 @@ let addBtn = profile.querySelector('.profile__add-button');
 let profName = profile.querySelector('.profile__name');
 
 let profession = profile.querySelector('.profile__profession');
+let likeButtons = document.querySelectorAll('.photo-grid__like');
 
 
 function formOpen() {
@@ -35,3 +36,13 @@ form.addEventListener('submit', (e) => {
     formClose();
 
 });
+
+
+function configureBytton(b) {
+    b.addEventListener('click', (e) => {
+        e.target.src = './images/Like-active.svg'
+    });
+}
+
+
+likeButtons.forEach(x => configureBytton(x));
