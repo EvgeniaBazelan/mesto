@@ -5,3 +5,10 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+@media all and (max-width:900px) {
+    .profile {
+        min-width: 282px;
+        flex-direction: column;
+    }
+}

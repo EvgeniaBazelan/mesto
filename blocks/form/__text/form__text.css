@@ -7,3 +7,11 @@
     text-align: center;
     margin: 34px 36px 54px;
 }
+
+@media all and (max-width:900px) {
+    .form__text {
+        font-size: 18px;
+        line-height: 22px;
+        margin: 0px 22px 65px;
+    }
+}

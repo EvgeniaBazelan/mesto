@@ -4,3 +4,9 @@
     margin: 0;
     padding: 0;
 }
+
+@media all and (max-width:900px) {
+    .form__personal-info {
+        min-width: 238px;
+    }
+}

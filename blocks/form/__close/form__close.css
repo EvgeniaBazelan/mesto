@@ -7,3 +7,10 @@
 .form__close:hover {
     opacity: 0.5;
 }
+
+@media all and (max-width:900px) {
+    .form__close {
+        max-height: 26px;
+        margin-left: 280px;
+    }
+}
