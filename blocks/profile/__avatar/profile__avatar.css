@@ -2,4 +2,12 @@
     max-width: 120px;
     border-radius: 50%;
     margin-right: 30px;
+    grid-area: avatar;
+}
+
+@media all and (max-width:900px) {
+    .profile__avatar {
+        margin: 0;
+        justify-self: center;
+    }
 }

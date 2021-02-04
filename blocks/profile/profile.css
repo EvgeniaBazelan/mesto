@@ -1,14 +1,13 @@
 .profile {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-areas: "avatar info info edit add " "avatar info info edit add" "avatar info info edit add";
     margin: 40px auto 40px auto;
-    justify-content: flex-start;
-    align-items: center;
+    gap: 18px
 }
 
 @media all and (max-width:900px) {
     .profile {
-        min-width: 282px;
-        flex-direction: column;
+        grid-template-areas: "avatar avatar" "info edit" "add add";
+        max-width: 282px;
     }
 }

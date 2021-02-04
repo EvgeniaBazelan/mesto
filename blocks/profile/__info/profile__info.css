@@ -1,4 +1,5 @@
 .profile__info {
+    grid-area: info;
     max-width: 336px;
     display: flex;
     flex-direction: column;
@@ -7,7 +8,6 @@
 
 @media all and (max-width:900px) {
     .profile__info {
-        min-width: 282px;
-        margin: 40px auto;
+        justify-self: right;
     }
 }

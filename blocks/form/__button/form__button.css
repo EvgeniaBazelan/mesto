@@ -10,6 +10,8 @@
     min-width: 358px;
     min-height: 50px;
     margin: 18px 36px 37px;
+    cursor: pointer;
+    border: 0;
 }
 
 .form__button:hover {

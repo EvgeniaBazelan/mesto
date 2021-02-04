@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./project/index.css">
+    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
 </head>
 
@@ -22,62 +22,75 @@
                 <h1 class="profile__name">Жак-Ив-Кусто</h1>
                 <p class="profile__profession">Исследователь океана</p>
             </div>
-            <img class="profile__edit-button" alt="кнопка для редактирования профиля" src="./images/Edit-Button.svg">
-            <img class="profile__add-button" alt="кнопка для добавления контента" src="./images/Add-Button.svg">
-            <form class="form">
-                <img class="form__close" alt="крестик для закрытия формы" src="./images/Close-Icon.svg">
-                <h2 class="form__text">Редактировать профиль</h2>
-                <fieldset class="form__personal-info">
-                    <input class="form__item form__item_name" placeholder="Name" type="text" value="">
-                    <input class="form__item form__item_profession" placeholder="Profession" type="text" value="">
-                    <!-- Элементы формы для получения данных о пользователе -->
-                </fieldset>
-                <button class="form__button" type="submit">Сохранить</button>
+            <batton> <img class="profile__edit-button" alt="кнопка для редактирования профиля" src="./images/Edit-Button.svg"></batton>
+            <button><img class="profile__add-button" alt="кнопка для добавления контента" src="./images/Add-Button.svg"></button>
 
-            </form>
         </section>
         <section class="photo-grid">
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="церковь в горах" src="./images/karachaevsk.jpg">
-                <p class="photo-grid__text">Карачаевск</p>
+                <p class="photo-grid__text">Карачаевск </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="Гора Эльбрус" src="./images/elbrus.jpg">
-                <p class="photo-grid__text">Гора Эльбрус</p>
+                <p class="photo-grid__text">Гора Эльбрус </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="Домбай" src="./images/karachaevsk.jpg">
-                <p class="photo-grid__text">Домбай</p>
+                <p class="photo-grid__text">Домбай </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="Гора Эльбрус" src="./images/elbrus.jpg">
-                <p class="photo-grid__text">Гора Эльбрус</p>
+                <p class="photo-grid__text">Гора Эльбрус </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="Домбай" src="./images/karachaevsk.jpg">
-                <p class="photo-grid__text">Домбай</p>
+                <p class="photo-grid__text">Домбай </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
             <div class="photo-grid__item">
                 <img class="photo-grid__view" alt="церковь в горах" src="./images/karachaevsk.jpg">
-                <p class="photo-grid__text">Карачаево-Ч...</p>
+                <p class="photo-grid__text">Карачаево-Ч... </p>
+                <button>
                 <img class="photo-grid__like" alt="отметка лайка" src="./images/like (1).svg">
+                </button>
             </div>
         </section>
 
-
-
     </main>
+    <div class="overlay overlay_open">
+        <form class="form form_open" name="pop_up">
+            <button> <img class="form__close" alt="крестик для закрытия формы" src="./images/Close-Icon.svg"></button>
+            <h2 class="form__text">Редактировать профиль</h2>
+            <fieldset class="form__personal-info">
+                <input class="form__item " placeholder="Name" name="name" type="text">
+                <input class="form__item " placeholder="Profession" name="profession" type="text">
+                <!-- Элементы формы для получения данных о пользователе -->
+            </fieldset>
+            <button class="form__button" type="submit">Сохранить</button>
+
+        </form>
+    </div>
     <footer class="footer">
 
         <p class="footer__copyright"> &copy; 2020 Mesto Russia</p>
 
     </footer>
-    <script src="scripts.js"></script>
+    <script src="scripts/scripts.js"></script>
 
 </body>
 

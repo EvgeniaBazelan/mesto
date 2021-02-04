@@ -1,19 +1,19 @@
 .profile__add-button {
+    grid-area: add;
     max-width: 150px;
-    margin-left: 244px;
     border: 2px solid #FFFFFF;
     box-sizing: border-box;
     border-radius: 2px;
+    cursor: pointer;
 }
 
 .profile__add-button:hover {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 @media all and (max-width:900px) {
     .profile__add-button {
         min-width: 282px;
-        max-width: 0;
-        margin: 0;
+        justify-self: center;
     }
 }
