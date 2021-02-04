@@ -4,7 +4,7 @@
     margin: 0 20px 0 0;
     border: none;
     background-color: rgba(239, 239, 239, 0);
-    background-image: url(../../../images/like (1).svg);
+    background-image: url("../../../images/like (1).svg");
     /* min-width: 40px; */
     background-size: cover;
     background-position: center;
