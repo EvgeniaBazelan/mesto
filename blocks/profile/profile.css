@@ -2,7 +2,7 @@
     display: grid;
     grid-template-areas: "avatar info info edit add " "avatar info info edit add" "avatar info info edit add";
     margin: 40px auto 40px auto;
-    gap: 18px
+    gap: 18px;
 }
 
 @media all and (max-width:900px) {

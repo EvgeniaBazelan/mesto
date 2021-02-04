@@ -2,7 +2,6 @@
     grid-area: add;
     border: none;
     background-color: rgba(0, 0, 0, 0.1);
-    grid-area: add;
     max-width: 150px;
     cursor: pointer;
 }
