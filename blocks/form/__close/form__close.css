@@ -4,6 +4,13 @@
     left: 98%;
     top: -30px;
     cursor: pointer;
+    border: none;
+    background-color: rgba(239, 239, 239, 0);
+    background-image: url("../../../images/Close-Icon.svg");
+    min-width: 40px;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
 }
 
 .form__close:hover {
