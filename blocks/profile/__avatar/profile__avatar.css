@@ -3,7 +3,7 @@
     border-radius: 50%;
     grid-area: avatar;
     align-self: center;
-    justify-self: center;
+    justify-self: left;
 }
 
 @media all and (max-width:900px) {
