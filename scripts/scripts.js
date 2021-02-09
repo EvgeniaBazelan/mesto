@@ -54,11 +54,11 @@ function formFill(e) {
 //function likeActive(e) {
 //  e.target.classList.toggle('photo-grid__like_active');
 //}
-function likeActive() {
-    likeButtons.classList.add('photo-grid__like_active');
-}
+//function likeActive() {
+// likeButtons.classList.add('photo-grid__like_active');
+//}
 
-likeButtons.addEventListener('click', likeActive);
+//likeButtons.addEventListener('click', likeActive);
 editBtn.addEventListener('click', addClassOverlay);
 //editBtn.addEventListener('click', formOpen);
 form.addEventListener('submit', formFill);

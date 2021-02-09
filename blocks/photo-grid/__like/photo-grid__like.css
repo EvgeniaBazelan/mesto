@@ -20,3 +20,7 @@
 .photo-grid__like:hover {
     opacity: 0.5;
 }
+
+.photo-grid__like:active {
+    background-image: url("../../../images/Like-active.svg");
+}
