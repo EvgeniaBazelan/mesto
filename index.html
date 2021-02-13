@@ -27,7 +27,12 @@
 
         </section>
         <section class="photo-grid">
+
+        </section>
+        <!--<section class="photo-grid">
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="церковь в горах" src="./images/karachaevsk.jpg">
                 <p class="photo-grid__text">Карачаевск </p>
                 <button type="button" class="photo-grid__like">
@@ -35,6 +40,7 @@
                 </button>
             </div>
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="Гора Эльбрус" src="./images/elbrus.jpg">
                 <p class="photo-grid__text">Гора Эльбрус </p>
                 <button type="button" class="photo-grid__like">
@@ -42,6 +48,7 @@
                 </button>
             </div>
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="Домбай" src="./images/karachaevsk.jpg">
                 <p class="photo-grid__text">Домбай </p>
                 <button type="button" class="photo-grid__like">
@@ -49,6 +56,7 @@
                 </button>
             </div>
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="Гора Эльбрус" src="./images/elbrus.jpg">
                 <p class="photo-grid__text">Гора Эльбрус </p>
                 <button type="button" class="photo-grid__like">
@@ -56,6 +64,7 @@
                 </button>
             </div>
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="Домбай" src="./images/karachaevsk.jpg">
                 <p class="photo-grid__text">Домбай </p>
                 <button type="button" class="photo-grid__like">
@@ -63,16 +72,17 @@
                 </button>
             </div>
             <div class="photo-grid__item">
+                <button type="button" class="photo-grid__item_delete"> </button>
                 <img class="photo-grid__view" alt="церковь в горах" src="./images/karachaevsk.jpg">
                 <p class="photo-grid__text">Карачаево-Ч... </p>
                 <button type="button" class="photo-grid__like">
 
                 </button>
-            </div>
+            </div>-->
         </section>
 
     </main>
-    <div class="overlay">
+    <div class="overlay overlay_edit-profile">
         <form class="form" name="form">
             <button type="button" class="form__close"> </button>
             <h2 class="form__text">Редактировать профиль</h2>
@@ -85,11 +95,50 @@
 
         </form>
     </div>
+    <div class="overlay overlay_add-place">
+        <form class="form" name="add-cards">
+            <button type="button" class="form__close" name="close"> </button>
+            <h2 class="form__text">Новое место</h2>
+            <fieldset class="form__personal-info">
+                <input class="form__item " placeholder="Название" name="title" type="text">
+                <input class="form__item " placeholder="Ссылка на картинку" name="link" type="text">
+                <!-- Элементы формы для получения данных о пользователе -->
+            </fieldset>
+            <button class="form__button" type="submit">Создать</button>
+
+        </form>
+    </div>
+    <div class="overlay overlay_view">
+        <div class="view">
+            <button type="button" class="view__close"> </button>
+            <img class="view__photo" alt="церковь в горах" src="./images/karachaevsk.jpg">
+            <p class="view__text">Карачаевск </p>
+        </div>
+    </div>
     <footer class="footer">
 
         <p class="footer__copyright"> &copy; 2020 Mesto Russia</p>
 
     </footer>
+    <template class="overlay_view-template">
+      <div class="view">
+        <button type="button" class="view__close"> </button>
+        <img class="view__photo" alt=" " src="">
+        <p class="view__text"></p>
+    </div>
+    </template>
+    <template class="photo-grid-template">
+      <div class="photo-grid__item">
+
+        <button type="button" class="photo-grid__item_delete"> </button>
+        <img class="photo-grid__view" alt="" src="">
+        <p class="photo-grid__text"></p>
+        <button type="button" class="photo-grid__like">
+
+        </button>
+    </div>
+    </template>
+
     <script src="scripts/scripts.js"></script>
 
 </body>
