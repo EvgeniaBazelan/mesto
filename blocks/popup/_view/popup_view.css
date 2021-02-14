@@ -1,3 +1,4 @@
-.overlay_view {
+.popup_view {
     background: rgba(0, 0, 0, 0.9);
+    visibility: hidden;
 }
