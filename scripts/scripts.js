@@ -1,35 +1,102 @@
-let form = document.querySelector('.form');
-let saveBtn = form.querySelector('.form__button');
-let editcloseBtn = form.querySelector('.form__close');
+const form = document.querySelector('form[name="form"]');
+const saveBtn = form.querySelector('.form__button');
+const editcloseBtn = form.querySelector('.popup__close');
+const changeName = form.querySelector('input[name=name]');
+const changeProfession = form.querySelector('input[name=profession');
 
-let overlay = document.querySelector('.overlay');
+const addFormElement = document.querySelector('form[name=add-cards]');
+const changeFormTitle = addFormElement.querySelector('input[name="title"]');
+const changeFormLink = addFormElement.querySelector('input[name=link]');
+const addcloseBtn = addFormElement.querySelector('button[name=close]');
 
-let formElements = document.getElementsByClassName('form');
-let addFormElements = document.querySelector('form[name=add-cards]');
-let changeFormTitle = addFormElements.querySelector('input[name="title"]');
-let changeFormLink = addFormElements.querySelector('input[name=link]');
-let addclosebtn = addFormElements.querySelector('button[name=close]');
-
-let editOverlayElements = document.getElementsByClassName('overlay_edit-profile');
-let addOverlayElements = document.getElementsByClassName('overlay_add-place');
-let viewOverlayElements = document.querySelector('.overlay_view');
-let viewcloseBtn = viewOverlayElements.querySelector('.view__close');
-
-let profile = document.querySelector('.profile');
-let editBtn = profile.querySelector('.profile__edit-button');
-let addBtn = profile.querySelector('.profile__add-button');
-let profName = profile.querySelector('.profile__name');
-let profession = profile.querySelector('.profile__profession');
-//let likeButtons = new Array();
-
-let formInfo = document.querySelector('form[name=form]');
-let changeName = formInfo.querySelector('input[name=name]');
-let changeProfession = formInfo.querySelector('input[name=profession');
+const profile = document.querySelector('.profile');
+const editBtn = profile.querySelector('.profile__edit-button');
+const addBtn = profile.querySelector('.profile__add-button');
+const profName = profile.querySelector('.profile__name');
+const profession = profile.querySelector('.profile__profession');
 
 
-let photoGridList = document.querySelector('.photo-grid');
-const photoGridTemplate = document.querySelector('.photo-grid-template').content;
-//const viewTemplate = document.querySelector('.overlay_view-template').content;
+
+
+const popup = document.querySelector('.popup');
+const popupProfile = document.querySelector('.popup_edit-profile');
+const popupAdd = document.querySelector('.popup_add-place');
+
+
+
+function openProfile(e) {
+    popupProfile.style.visibility = 'visible';
+    popupProfile.classList.toggle('popup_open');
+    changeName.value = profName.textContent;
+    changeProfession.value = profession.textContent;
+}
+
+function closeProfile(e) {
+    popupProfile.style.visibility = 'hidden';
+    popupProfile.classList.toggle('popup_open');
+}
+
+function openAdd(e) {
+    popupAdd.style.visibility = 'visible';
+    popupAdd.classList.toggle('popup_open');
+}
+
+function closeAdd(e) {
+    popupAdd.style.visibility = 'hidden';
+    popupAdd.classList.toggle('popup_open');
+}
+
+
+
+
+
+
+function closePopup(evt) {
+    if (evt.target === evt.currentTarget) {
+        closeProfile();
+        closeAdd();
+
+    }
+}
+
+function editformFill(e) {
+    e.preventDefault();
+    profName.textContent = changeName.value;
+    profession.textContent = changeProfession.value;
+    closeProfile();
+}
+
+function addformFill(e) {
+    e.preventDefault();
+    const initialCardElement = createCard(changeFormTitle.value, changeFormLink.value)
+    photoGridList.prepend(initialCardElement)
+    closeAdd()
+}
+
+
+function deleteAction(e) {
+    const button = e.target;
+    const buttonItem = button.parentNode;
+    buttonItem.parentNode.removeChild(buttonItem);
+}
+
+function likeActive(e) {
+    e.target.classList.toggle('photo-grid__like_active');
+}
+
+
+
+
+
+editBtn.addEventListener('click', openProfile);
+addBtn.addEventListener('click', openAdd);
+editcloseBtn.addEventListener('click', closePopup);
+addcloseBtn.addEventListener('click', closePopup);
+
+form.addEventListener('submit', editformFill);
+addFormElement.addEventListener('submit', addformFill);
+
+
 
 const initialCards = [{
         name: 'Архыз',
@@ -56,124 +123,50 @@ const initialCards = [{
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-let view = document.querySelector('.view__photo')
 
-function likeActive(e) {
-    e.target.classList.toggle('photo-grid__like_active');
+const photoGridList = document.querySelector('.photo-grid');
+const photoGridTemplate = document.querySelector('.photo-grid-template').content;
+
+
+
+
+function createCard(name, link) {
+    const newCard = photoGridTemplate.cloneNode(true);
+    const cardView = newCard.querySelector('.photo-grid__view');
+    const cardText = newCard.querySelector('.photo-grid__text');
+
+    cardText.textContent = name;
+    cardView.src = link;
+    cardView.alt = name;
+    const Delete = newCard.querySelector('.photo-grid__item_delete');
+    Delete.addEventListener('click', deleteAction);
+    const Like = newCard.querySelector('.photo-grid__like');
+    Like.addEventListener('click', likeActive);
+    cardView.addEventListener('click', openView);
+
+
+
+    function openView(e) {
+        const popupView = document.querySelector('.popup_view');
+        const view = popupView.querySelector('.view__photo');
+        const text = popupView.querySelector('.view__text');
+        const viewcloseBtn = popupView.querySelector('button[name=close_view]');
+        viewcloseBtn.addEventListener('click', (e) => {
+            popupView.style.visibility = 'hidden';
+            popupView.classList.remove('popup_open');
+        });
+        popupView.style.visibility = 'visible';
+        popupView.classList.toggle('popup_open');
+        view.src = link;
+        view.alt = name;
+        text.textContent = name;
+
+
+
+    }
+    return newCard;
 }
-
-function deleteAction(e) {
-    const button = e.target;
-    const buttonItem = button.parentNode;
-    buttonItem.parentNode.removeChild(buttonItem);
-}
-
-function viewFormOpen(e) {
-    // var imageSource = e.target['src'];
-    // var exactOverlay = viewOverlayElements[0];
-    // exactOverlay.classList.toggle('overlay_open');
-    // exactOverlay.getElementsByTagName('img')[0].setAttribute("src", imageSource)
-    viewOverlayElements.classList.add('overlay_open');
-    let imageSource = e.target['src'];
-
-    viewOverlayElements.querySelector('.view__photo').setAttribute("src", imageSource);
-
-
-}
-
 initialCards.forEach(function(element) {
-    const initialCardElement = photoGridTemplate.cloneNode(true);
-
-    initialCardElement.querySelector('.photo-grid__text').textContent = element.name;
-    initialCardElement.querySelector('.photo-grid__view').setAttribute("src", element.link)
-        //likeButtons.push(initialCardElement.querySelector('.photo-grid__like'));
-    initialCardElement.querySelector('.photo-grid__like').addEventListener("click", likeActive);
-    initialCardElement.querySelector('.photo-grid__item_delete').addEventListener("click", deleteAction);
-    initialCardElement.querySelector('.photo-grid__view').addEventListener('click', viewFormOpen)
+    const initialCardElement = createCard(element.name, element.link)
     photoGridList.append(initialCardElement)
 });
-
-
-
-
-
-function addFormOpen(e) {
-    Array.from(addOverlayElements).forEach(element => element.classList.toggle('overlay_open'));
-
-
-    //Array.from(addFormElements).forEach(element => element.classList.toggle('form_open'));
-    //changeFormTitle.setAttribute("value", element.title);
-    //changeFormTitle.value = element.title.textContent;
-    //changeFormLink.value = element.link.textContent;
-}
-
-function formOpen(e) {
-    Array.from(editOverlayElements).forEach(element => element.classList.toggle('overlay_open'));
-    // Array.from(formElements).forEach(element => element.classList.toggle('form_open'));
-    changeName.value = profName.textContent;
-    changeProfession.value = profession.textContent;
-}
-//function addClassOverlay() {
-//   overlay.classList.add('overlay_open');
-//   changeName.value = profName.textContent;
-//   changeProfession.value = profession.textContent;
-//}
-
-
-function editformClose(e) {
-
-    Array.from(editOverlayElements).forEach(element => element.classList.toggle('overlay_open'));
-
-}
-
-function addformClose(e) {
-
-    Array.from(addOverlayElements).forEach(element => element.classList.toggle('overlay_open'));
-
-}
-
-function viewformClose(e) {
-
-    viewOverlayElements.classList.remove('overlay_open');
-
-}
-
-
-function formFill(e) {
-    e.preventDefault();
-    profName.textContent = changeName.value;
-    profession.textContent = changeProfession.value;
-    editformClose();
-}
-
-function addformFill(e) {
-    e.preventDefault();
-    const initialCardElement = photoGridTemplate.cloneNode(true);
-
-    initialCardElement.querySelector('.photo-grid__text').textContent = changeFormTitle.value;
-    initialCardElement.querySelector('.photo-grid__view').setAttribute("src", changeFormLink.value);
-    initialCardElement.querySelector('.photo-grid__item_delete').addEventListener("click", deleteAction);
-    initialCardElement.querySelector('.photo-grid__like').addEventListener("click", likeActive);
-    photoGridList.prepend(initialCardElement)
-    addformClose();
-}
-
-
-
-
-//Array.from(likeButtons).forEach(element => element.addEventListener('click', likeActive));
-
-// function likeActive() {
-//   likeButtons.classList.add('photo-grid__like_active');
-// }
-
-//likeButtons.addEventListener('click', likeActive);
-editBtn.addEventListener('click', formOpen);
-addBtn.addEventListener('click', addFormOpen);
-view.addEventListener('click', viewFormOpen);
-//form.addEventListener('submit', formFill);
-addFormElements.addEventListener('submit', addformFill);
-formInfo.addEventListener('submit', formFill);
-editcloseBtn.addEventListener('click', editformClose);
-addclosebtn.addEventListener('click', addformClose);
-viewcloseBtn.addEventListener('click', viewformClose);
