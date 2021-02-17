@@ -18,7 +18,7 @@ const profession = profile.querySelector('.profile__profession');
 
 
 
-const popup = document.querySelector('.popup');
+//const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupAdd = document.querySelector('.popup_add-place');
 
@@ -28,7 +28,7 @@ const text = popupView.querySelector('.view__text');
 
 
 
-function openProfile() {
+/*function openProfile() {
 
     popupProfile.classList.toggle('popup_open');
     changeName.value = profName.textContent;
@@ -48,21 +48,30 @@ function openAdd() {
 function closeAdd() {
 
     popupAdd.classList.toggle('popup_open');
+}*/
+
+function openPopup(popup) {
+
+    popup.classList.add('popup_open');
 }
 
+function closePopup(item) {
+
+    item.classList.remove('popup_open');
+}
 
 function editformFill(e) {
     e.preventDefault();
     profName.textContent = changeName.value;
     profession.textContent = changeProfession.value;
-    closeProfile();
+    closePopup(popupProfile);
 }
 
 function addformFill(e) {
     e.preventDefault();
     const initialCardElement = createCard(changeFormTitle.value, changeFormLink.value)
     photoGridList.prepend(initialCardElement)
-    closeAdd()
+    closePopup(popupAdd)
 }
 
 
@@ -80,10 +89,14 @@ function likeActive(e) {
 
 
 
-editBtn.addEventListener('click', openProfile);
-addBtn.addEventListener('click', openAdd);
-editcloseBtn.addEventListener('click', closeProfile);
-addcloseBtn.addEventListener('click', closeAdd);
+editBtn.addEventListener('click', (e) => {
+    changeName.value = profName.textContent;
+    changeProfession.value = profession.textContent;
+    openPopup(popupProfile)
+});
+addBtn.addEventListener('click', (e) => { openPopup(popupAdd) });
+editcloseBtn.addEventListener('click', (e) => { closePopup(popupProfile) });
+addcloseBtn.addEventListener('click', (e) => { closePopup(popupAdd) });
 
 form.addEventListener('submit', editformFill);
 addFormElement.addEventListener('submit', addformFill);
