@@ -133,7 +133,10 @@ const photoGridList = document.querySelector('.photo-grid');
 const photoGridTemplate = document.querySelector('.photo-grid-template').content;
 
 
-
+const viewcloseBtn = popupView.querySelector('button[name=close_view]');
+viewcloseBtn.addEventListener('click', (e) => {
+    closePopup(popupView)
+});
 
 function createCard(name, link) {
     const newCard = photoGridTemplate.cloneNode(true);
@@ -149,17 +152,13 @@ function createCard(name, link) {
     like.addEventListener('click', likeActive);
     cardView.addEventListener('click', openView);
 
-    const viewcloseBtn = popupView.querySelector('button[name=close_view]');
-    viewcloseBtn.addEventListener('click', (e) => {
 
-        popupView.classList.remove('popup_open');
-    });
 
     function openView(e) {
 
 
 
-        popupView.classList.toggle('popup_open');
+        openPopup(popupView)
         view.src = link;
         view.alt = name;
         text.textContent = name;
