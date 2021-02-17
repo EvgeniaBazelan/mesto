@@ -22,42 +22,34 @@ const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupAdd = document.querySelector('.popup_add-place');
 
+const popupView = document.querySelector('.popup_view');
+const view = popupView.querySelector('.view__photo');
+const text = popupView.querySelector('.view__text');
 
 
-function openProfile(e) {
-    popupProfile.style.visibility = 'visible';
+
+function openProfile() {
+
     popupProfile.classList.toggle('popup_open');
     changeName.value = profName.textContent;
     changeProfession.value = profession.textContent;
 }
 
-function closeProfile(e) {
-    popupProfile.style.visibility = 'hidden';
+function closeProfile() {
+
     popupProfile.classList.toggle('popup_open');
 }
 
-function openAdd(e) {
-    popupAdd.style.visibility = 'visible';
+function openAdd() {
+
     popupAdd.classList.toggle('popup_open');
 }
 
-function closeAdd(e) {
-    popupAdd.style.visibility = 'hidden';
+function closeAdd() {
+
     popupAdd.classList.toggle('popup_open');
 }
 
-
-
-
-
-
-function closePopup(evt) {
-    if (evt.target === evt.currentTarget) {
-        closeProfile();
-        closeAdd();
-
-    }
-}
 
 function editformFill(e) {
     e.preventDefault();
@@ -90,8 +82,8 @@ function likeActive(e) {
 
 editBtn.addEventListener('click', openProfile);
 addBtn.addEventListener('click', openAdd);
-editcloseBtn.addEventListener('click', closePopup);
-addcloseBtn.addEventListener('click', closePopup);
+editcloseBtn.addEventListener('click', closeProfile);
+addcloseBtn.addEventListener('click', closeAdd);
 
 form.addEventListener('submit', editformFill);
 addFormElement.addEventListener('submit', addformFill);
@@ -138,24 +130,22 @@ function createCard(name, link) {
     cardText.textContent = name;
     cardView.src = link;
     cardView.alt = name;
-    const Delete = newCard.querySelector('.photo-grid__item_delete');
-    Delete.addEventListener('click', deleteAction);
-    const Like = newCard.querySelector('.photo-grid__like');
-    Like.addEventListener('click', likeActive);
+    const deleteItem = newCard.querySelector('.photo-grid__item_delete');
+    deleteItem.addEventListener('click', deleteAction);
+    const like = newCard.querySelector('.photo-grid__like');
+    like.addEventListener('click', likeActive);
     cardView.addEventListener('click', openView);
 
+    const viewcloseBtn = popupView.querySelector('button[name=close_view]');
+    viewcloseBtn.addEventListener('click', (e) => {
 
+        popupView.classList.remove('popup_open');
+    });
 
     function openView(e) {
-        const popupView = document.querySelector('.popup_view');
-        const view = popupView.querySelector('.view__photo');
-        const text = popupView.querySelector('.view__text');
-        const viewcloseBtn = popupView.querySelector('button[name=close_view]');
-        viewcloseBtn.addEventListener('click', (e) => {
-            popupView.style.visibility = 'hidden';
-            popupView.classList.remove('popup_open');
-        });
-        popupView.style.visibility = 'visible';
+
+
+
         popupView.classList.toggle('popup_open');
         view.src = link;
         view.alt = name;
