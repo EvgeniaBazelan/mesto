@@ -18,7 +18,7 @@ const profession = profile.querySelector('.profile__profession');
 
 
 
-//const popup = document.querySelector('.popup');
+
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupAdd = document.querySelector('.popup_add-place');
 
@@ -87,6 +87,20 @@ function likeActive(e) {
 
 
 
+/*popupAdd.addEventListener('keydown', (e) => {
+    if (evt.key === 'Escape') {
+
+        closePopup(popupAdd);
+    }
+})
+popupView.addEventListener('keydown', (e) => {
+    if (evt.key === 'Escape') {
+
+        closePopup(popupView);
+    }
+})*/
+
+
 
 
 editBtn.addEventListener('click', (e) => {
@@ -100,6 +114,7 @@ addcloseBtn.addEventListener('click', (e) => { closePopup(popupAdd) });
 
 form.addEventListener('submit', editformFill);
 addFormElement.addEventListener('submit', addformFill);
+
 
 
 
@@ -172,3 +187,34 @@ initialCards.forEach(function(element) {
     const initialCardElement = createCard(element.name, element.link)
     photoGridList.append(initialCardElement)
 });
+
+
+function keyHandler(evt) {
+    const popupEsc = evt.target.closest('.popup')
+    if (evt.key === "Escape") {
+        closePopup(popupEsc);
+    }
+}
+document.addEventListener('keydown', (evt) => {
+    if (evt.key === "Escape") {
+        closePopup(popupProfile);
+        closePopup(popupAdd);
+        closePopup(popupView);
+    }
+});
+
+function mouseClick(evt) {
+    if (evt.target === evt.currentTarget) {
+
+        closePopup(popupProfile);
+        closePopup(popupAdd);
+        closePopup(popupView);
+    }
+}
+
+popupProfile.addEventListener('click', mouseClick);
+popupAdd.addEventListener('click', mouseClick);
+popupView.addEventListener('click', mouseClick);
+// popupProfile.addEventListener('keydown', keyHandler);
+// popupAdd.addEventListener('keydown', keyHandler);
+// popupView.addEventListener('keydown', keyHandler);
