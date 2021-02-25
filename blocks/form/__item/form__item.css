@@ -10,6 +10,7 @@
     color: #000000;
     text-align: start;
     margin: 0 36px 30px;
+    position: relative;
 }
 
 @media all and (max-width:900px) {
@@ -17,4 +18,8 @@
         min-width: 238px;
         margin: 0 20px 30px;
     }
+}
+
+.form__item:invalid {
+    border-bottom: 1px solid #FF0000;
 }

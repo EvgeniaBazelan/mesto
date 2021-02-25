@@ -33,12 +33,14 @@
 
     </main>
     <div class="popup popup_edit-profile">
-        <form class="form" name="form">
+        <form class="form" name="form" novalidate>
             <button type="button" class="popup__close"> </button>
             <h2 class="form__text">Редактировать профиль</h2>
             <fieldset class="form__personal-info">
-                <input class="form__item " placeholder="Name" name="name" type="text">
-                <input class="form__item " placeholder="Profession" name="profession" type="text">
+                <input class="form__item " id='name' placeholder="Name" name="name" type="text" required minlength="2" maxlength="40">
+                <span class="form__item-error name-error "></span>
+                <input class="form__item " id='profession' placeholder="Profession" name="profession" type="text" required minlength="2" maxlength="200">
+                <span class="form__item-error profession-error"></span>
                 <!-- Элементы формы для получения данных о пользователе -->
             </fieldset>
             <button class="form__button" type="submit">Сохранить</button>
@@ -46,12 +48,14 @@
         </form>
     </div>
     <div class="popup popup_add-place">
-        <form class="form" name="add-cards">
+        <form class="form" name="add-cards" novalidate>
             <button type="button" class="popup__close" name="close"> </button>
             <h2 class="form__text">Новое место</h2>
             <fieldset class="form__personal-info">
-                <input class="form__item " placeholder="Название" name="title" type="text">
-                <input class="form__item " placeholder="Ссылка на картинку" name="link" type="text">
+                <input class="form__item " id='title' placeholder="Название" name="title" type="text" required minlength="2" maxlength="30">
+                <span class="form__item-error title-error"></span>
+                <input class="form__item " id='link' placeholder="Ссылка на картинку" name="link" type="url" required>
+                <span class="form__item-error link-error"></span>
                 <!-- Элементы формы для получения данных о пользователе -->
             </fieldset>
             <button class="form__button" type="submit">Создать</button>
@@ -84,7 +88,7 @@
     </template>
 
     <script src="scripts/scripts.js"></script>
-
+    <script src="scripts/validate.js"></script>
 </body>
 
 </html>

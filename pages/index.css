@@ -24,6 +24,10 @@
 @import url(../blocks/form/__personal-info/form__personal-info.css);
 @import url(../blocks/form/__item/form__item.css);
 @import url(../blocks/form/__button/form__button.css);
+@import url(../blocks/form/__button/_disabled/form__button_disabled.css);
+@import url(../blocks/form/__item/_type_error/form__item_type_error.css);
+@import url(../blocks/form/__error-visible/form__error-visible.css);
+@import url(../blocks/form/__item-error/form__item-error.css);
 @import url(../blocks/photo-grid/photo-grid.css);
 @import url(../blocks/photo-grid/__item/photo-grid__item.css);
 @import url(../blocks/photo-grid/__item/_delete/photo-grid__item_delete.css);
