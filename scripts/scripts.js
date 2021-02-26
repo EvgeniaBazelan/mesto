@@ -34,14 +34,22 @@ function closeKeyDown(evt) {
 
     if (evt.key === "Escape") {
         const openedPopup = document.querySelector('.popup_open')
-        closePopup(openedPopup)
+        if (openedPopup !== popupView) {
+
+            closePopup(openedPopup)
+        } else {
+            popupView.classList.remove('popup_open');
+        }
     }
 }
 
 function closeMouseClick(evt) {
     if (evt.target === evt.currentTarget) {
-
-        closePopup(evt.target)
+        if (evt.target !== popupView) {
+            closePopup(evt.target)
+        } else {
+            popupView.classList.remove('popup_open');
+        }
     }
 }
 
@@ -49,8 +57,8 @@ function cleanValidate(popup) {
 
     const cleanInput = popup.querySelector(".form__item");
     const cleanError = popup.querySelector(`.${cleanInput.id}-error`);
-    cleanInput.classList.remove(".form__item_type_error");
-    cleanError.classList.remove(".form__item-error_visible");
+    cleanInput.classList.remove("form__item_type_error");
+    cleanError.classList.remove("form__item-error_visible");
     cleanError.value = "";
     console.log(cleanInput)
     console.log(cleanError)
@@ -58,7 +66,7 @@ function cleanValidate(popup) {
 }
 
 function closePopup(popup) {
-    cleanValidate(popup);
+    cleanValidate(popup)
     popup.classList.remove('popup_open');
 
 }
@@ -72,7 +80,7 @@ function submitEditProfileForm(e) {
 
 function submitAddCardForm(e) {
     e.preventDefault();
-    const initialCardElement = createCard(changeFormTitle.value, changeFormLink.value)
+    const initialCardElement = createCard({ name: changeFormTitle.value, link: changeFormLink.value })
     photoGridList.prepend(initialCardElement)
     closePopup(popupAdd)
 }
@@ -144,7 +152,7 @@ const photoGridTemplate = document.querySelector('.photo-grid-template').content
 
 const viewcloseBtn = popupView.querySelector('button[name=close_view]');
 viewcloseBtn.addEventListener('click', (e) => {
-    closePopup(popupView)
+    popupView.classList.remove('popup_open');
 });
 
 function createCard(card) {
