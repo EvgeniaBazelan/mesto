@@ -32,6 +32,25 @@ const text = popupView.querySelector('.view__text');
 function openPopup(popup) {
 
     popup.classList.add('popup_open');
+    popup.tabIndex = -1;
+    popup.addEventListener('click', closeMouseClick);
+    document.addEventListener('keydown', closeKeyDown);
+}
+
+function closeKeyDown(evt) {
+
+    if (evt.key === "Escape") {
+        const openedPopup = document.querySelector('.popup_open')
+        closePopup(openedPopup)
+    }
+}
+
+
+function closeMouseClick(evt) {
+    if (evt.target === evt.currentTarget) {
+
+        closePopup(evt.target)
+    }
 }
 
 function closePopup(popup) {
@@ -199,30 +218,5 @@ function openView(card) {
 }
 
 
-function keyHandler(evt) {
-    const popupEsc = evt.target.closest('.popup')
-    if (evt.key === "Escape") {
-        closePopup(popupEsc);
-    }
-}
-document.addEventListener('keydown', (evt) => {
-    if (evt.key === "Escape") {
-        closePopup(popupProfile);
-        closePopup(popupAdd);
-        closePopup(popupView);
-    }
-});
 
-function mouseClick(evt) {
-    if (evt.target === evt.currentTarget) {
-
-        closePopup(popupProfile);
-        closePopup(popupAdd);
-        closePopup(popupView);
-    }
-}
-
-popupProfile.addEventListener('click', mouseClick);
-popupAdd.addEventListener('click', mouseClick);
-popupView.addEventListener('click', mouseClick);
 render()
