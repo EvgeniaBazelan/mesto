@@ -28,46 +28,25 @@ const text = popupView.querySelector('.view__text');
 
 
 
-/*function openProfile() {
-
-    popupProfile.classList.toggle('popup_open');
-    changeName.value = profName.textContent;
-    changeProfession.value = profession.textContent;
-}
-
-function closeProfile() {
-
-    popupProfile.classList.toggle('popup_open');
-}
-
-function openAdd() {
-
-    popupAdd.classList.toggle('popup_open');
-}
-
-function closeAdd() {
-
-    popupAdd.classList.toggle('popup_open');
-}*/
 
 function openPopup(popup) {
 
     popup.classList.add('popup_open');
 }
 
-function closePopup(item) {
+function closePopup(popup) {
 
-    item.classList.remove('popup_open');
+    popup.classList.remove('popup_open');
 }
 
-function editformFill(e) {
+function submitEditProfileForm(e) {
     e.preventDefault();
     profName.textContent = changeName.value;
     profession.textContent = changeProfession.value;
     closePopup(popupProfile);
 }
 
-function addformFill(e) {
+function submitAddCardForm(e) {
     e.preventDefault();
     const initialCardElement = createCard(changeFormTitle.value, changeFormLink.value)
     photoGridList.prepend(initialCardElement)
@@ -87,20 +66,6 @@ function likeActive(e) {
 
 
 
-/*popupAdd.addEventListener('keydown', (e) => {
-    if (evt.key === 'Escape') {
-
-        closePopup(popupAdd);
-    }
-})
-popupView.addEventListener('keydown', (e) => {
-    if (evt.key === 'Escape') {
-
-        closePopup(popupView);
-    }
-})*/
-
-
 
 
 editBtn.addEventListener('click', (e) => {
@@ -112,8 +77,8 @@ addBtn.addEventListener('click', (e) => { openPopup(popupAdd) });
 editcloseBtn.addEventListener('click', (e) => { closePopup(popupProfile) });
 addcloseBtn.addEventListener('click', (e) => { closePopup(popupAdd) });
 
-form.addEventListener('submit', editformFill);
-addFormElement.addEventListener('submit', addformFill);
+form.addEventListener('submit', submitEditProfileForm);
+addFormElement.addEventListener('submit', submitAddCardForm);
 
 
 
@@ -215,6 +180,3 @@ function mouseClick(evt) {
 popupProfile.addEventListener('click', mouseClick);
 popupAdd.addEventListener('click', mouseClick);
 popupView.addEventListener('click', mouseClick);
-// popupProfile.addEventListener('keydown', keyHandler);
-// popupAdd.addEventListener('keydown', keyHandler);
-// popupView.addEventListener('keydown', keyHandler);
