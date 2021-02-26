@@ -15,19 +15,12 @@ const addBtn = profile.querySelector('.profile__add-button');
 const profName = profile.querySelector('.profile__name');
 const profession = profile.querySelector('.profile__profession');
 
-
-
-
-
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupAdd = document.querySelector('.popup_add-place');
 
 const popupView = document.querySelector('.popup_view');
 const view = popupView.querySelector('.view__photo');
 const text = popupView.querySelector('.view__text');
-
-
-
 
 function openPopup(popup) {
 
@@ -45,7 +38,6 @@ function closeKeyDown(evt) {
     }
 }
 
-
 function closeMouseClick(evt) {
     if (evt.target === evt.currentTarget) {
 
@@ -53,9 +45,22 @@ function closeMouseClick(evt) {
     }
 }
 
-function closePopup(popup) {
+function cleanValidate(popup) {
 
+    const cleanInput = popup.querySelector(".form__item");
+    const cleanError = popup.querySelector(`.${cleanInput.id}-error`);
+    cleanInput.classList.remove(".form__item_type_error");
+    cleanError.classList.remove(".form__item-error_visible");
+    cleanError.value = "";
+    console.log(cleanInput)
+    console.log(cleanError)
+
+}
+
+function closePopup(popup) {
+    cleanValidate(popup);
     popup.classList.remove('popup_open');
+
 }
 
 function submitEditProfileForm(e) {
@@ -72,7 +77,6 @@ function submitAddCardForm(e) {
     closePopup(popupAdd)
 }
 
-
 function deleteAction(e) {
     const button = e.target;
     const buttonItem = button.parentNode;
@@ -83,24 +87,30 @@ function likeActive(e) {
     e.target.classList.toggle('photo-grid__like_active');
 }
 
-
-
-
+function resetForm(item) {
+    item.reset()
+}
 
 editBtn.addEventListener('click', (e) => {
     changeName.value = profName.textContent;
     changeProfession.value = profession.textContent;
     openPopup(popupProfile)
 });
-addBtn.addEventListener('click', (e) => { openPopup(popupAdd) });
+addBtn.addEventListener('click', (e) => {
+    openPopup(popupAdd);
+
+    changeFormTitle.value = ""
+    changeFormLink.value = ""
+
+});
 editcloseBtn.addEventListener('click', (e) => { closePopup(popupProfile) });
-addcloseBtn.addEventListener('click', (e) => { closePopup(popupAdd) });
+addcloseBtn.addEventListener('click', (e) => {
+
+    closePopup(popupAdd)
+});
 
 form.addEventListener('submit', submitEditProfileForm);
 addFormElement.addEventListener('submit', submitAddCardForm);
-
-
-
 
 const initialCards = [{
         name: 'Архыз',
@@ -156,67 +166,15 @@ function render() {
     const htmlCard = initialCards.map(createCard)
     photoGridList.append(...htmlCard);
 }
-/*function createCard(name, link) {
-    const newCard = photoGridTemplate.cloneNode(true);
-    const cardView = newCard.querySelector('.photo-grid__view');
-    const cardText = newCard.querySelector('.photo-grid__text');
-
-    cardText.textContent = name;
-    cardView.src = link;
-    cardView.alt = name;
-    const deleteItem = newCard.querySelector('.photo-grid__item_delete');
-    deleteItem.addEventListener('click', deleteAction);
-    const like = newCard.querySelector('.photo-grid__like');
-    like.addEventListener('click', likeActive);
-    cardView.addEventListener('click', openView();
-
-
-
-    /* function openView(e) {
-
-
-
-         openPopup(popupView)
-         view.src = link;
-         view.alt = name;
-         text.textContent = name;
-
-
-
-     }
-    return newCard;
-}*/
-/*initialCards.forEach(function(element) {
-    const initialCardElement = createCard(element.name, element.link)
-    photoGridList.append(initialCardElement)
-});*/
 
 function openView(card) {
 
     openPopup(popupView);
 
-
     view.src = card.link;
     view.alt = card.name;
     text.textContent = card.name;
 
-
-    /* initialCards.forEach(function(element) {
-         const initialCardElement = createCard(element.name, element.link)
-         view.src = element.link;
-         view.alt = element.name;
-         text.textContent = element.name;
-         return e.target
-     });*/
-    /*function(e) {
-        const a = e.target
-        const b = {...a }
-        view.src = b.link
-
-    }*/
-
 }
-
-
 
 render()

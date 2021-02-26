@@ -4,7 +4,7 @@ const settingsObj = {
     submitButtonSelector: '.form__button',
     inactiveButtonClass: 'form__button_disabled',
     inputErrorClass: 'form__item_type_error',
-    errorClass: 'form__error-visible'
+    errorClass: 'form__item-error_visible'
 }
 
 const showInputError = (formSelector, inputSelector, errorMessage, settingsObj) => {
