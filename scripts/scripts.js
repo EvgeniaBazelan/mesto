@@ -118,7 +118,26 @@ viewcloseBtn.addEventListener('click', (e) => {
     closePopup(popupView)
 });
 
-function createCard(name, link) {
+function createCard(card) {
+    const newCard = photoGridTemplate.cloneNode(true);
+    const cardText = newCard.querySelector('.photo-grid__text');
+    const cardView = newCard.querySelector('.photo-grid__view');
+    cardText.textContent = card.name;
+    cardView.src = card.link;
+    cardView.alt = card.name;
+    const deleteItem = newCard.querySelector('.photo-grid__item_delete');
+    deleteItem.addEventListener('click', deleteAction);
+    const like = newCard.querySelector('.photo-grid__like');
+    like.addEventListener('click', likeActive);
+    cardView.addEventListener('click', () => openView(card));
+    return newCard;
+}
+
+function render() {
+    const htmlCard = initialCards.map(createCard)
+    photoGridList.append(...htmlCard);
+}
+/*function createCard(name, link) {
     const newCard = photoGridTemplate.cloneNode(true);
     const cardView = newCard.querySelector('.photo-grid__view');
     const cardText = newCard.querySelector('.photo-grid__text');
@@ -130,28 +149,54 @@ function createCard(name, link) {
     deleteItem.addEventListener('click', deleteAction);
     const like = newCard.querySelector('.photo-grid__like');
     like.addEventListener('click', likeActive);
-    cardView.addEventListener('click', openView);
+    cardView.addEventListener('click', openView();
 
 
 
-    function openView(e) {
+    /* function openView(e) {
 
 
 
-        openPopup(popupView)
-        view.src = link;
-        view.alt = name;
-        text.textContent = name;
+         openPopup(popupView)
+         view.src = link;
+         view.alt = name;
+         text.textContent = name;
 
 
 
-    }
+     }
     return newCard;
-}
-initialCards.forEach(function(element) {
+}*/
+/*initialCards.forEach(function(element) {
     const initialCardElement = createCard(element.name, element.link)
     photoGridList.append(initialCardElement)
-});
+});*/
+
+function openView(card) {
+
+    openPopup(popupView);
+
+
+    view.src = card.link;
+    view.alt = card.name;
+    text.textContent = card.name;
+
+
+    /* initialCards.forEach(function(element) {
+         const initialCardElement = createCard(element.name, element.link)
+         view.src = element.link;
+         view.alt = element.name;
+         text.textContent = element.name;
+         return e.target
+     });*/
+    /*function(e) {
+        const a = e.target
+        const b = {...a }
+        view.src = b.link
+
+    }*/
+
+}
 
 
 function keyHandler(evt) {
@@ -180,3 +225,4 @@ function mouseClick(evt) {
 popupProfile.addEventListener('click', mouseClick);
 popupAdd.addEventListener('click', mouseClick);
 popupView.addEventListener('click', mouseClick);
+render()
