@@ -19,7 +19,3 @@
         margin: 0 20px 30px;
     }
 }
-
-.form__item:invalid {
-    border-bottom: 1px solid #FF0000;
-}
