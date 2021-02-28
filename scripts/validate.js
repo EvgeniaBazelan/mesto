@@ -5,6 +5,7 @@ const settingsObj = {
     inactiveButtonClass: 'form__button_disabled',
     inputErrorClass: 'form__item_type_error',
     errorClass: 'form__item-error_visible'
+
 }
 
 const showInputError = (formSelector, inputSelector, errorMessage, settingsObj) => {
@@ -59,8 +60,6 @@ const enableValidation = (settingsObj) => {
     });
 };
 
-
-
 function hasInvalidInput(inputList) {
     return inputList.some((inputSelector) => {
         return !inputSelector.validity.valid;
@@ -80,82 +79,16 @@ function toggleButtonState(inputList, buttonElement, settingsObj) {
 enableValidation(settingsObj);
 
 
+function cleanInputErrors(formSelector, settingsObjParameter) {
+    const cleanInput = formSelector.querySelector(settingsObjParameter.inputSelector);
+    const cleanError = formSelector.querySelector(`.${cleanInput.id}-error`);
+    cleanInput.classList.remove(settingsObjParameter.inputErrorClass);
+    cleanError.classList.remove(settingsObjParameter.errorClass);
+    cleanError.value = "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`#${inputElement}-error`);
-    inputElement.classList.add('form__item_type_error');
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add('form__error_visible');
-};
-
-function setEventListeners(formElement, settingsObj) {
-    const inputList = Array.from(formElement.querySelectorAll(settingsObj.inputSelector));
-    inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', function() {
-            checkInputValidity(formElement, inputElement);
-        });
-    });
-};
-setEventListeners(settingsObj);
-
-function enableValidation(settingsObj) {
-    const formList = Array.from(formElement.querySelectorAll(settingsObj.formSelector));
-    formList.forEach((formElement) => {
-        formElement.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-        });
-
-        setEventListeners(formElement);
-    });
 }
 
 
-const hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`#${inputElement}-error`);
-    inputElement.classList.remove('form__item_type_error');
-    errorElement.classList.remove('form__error_visible');
-    errorElement.textContent = '';
-};
-
-const checkInputValidity = (formElement, inputElement) => {
-    if (!formInput.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
-    } else {
-        hideInputError(formElement, inputElement);
-    }
-};
-
-form.addEventListener('submit', function(evt) {
-    evt.preventDefault();
-});
-
-formInput.addEventListener('input', function() {
-    checkInputValidity(settingsObj);
-});
-enableValidation(settingsObj);*/
+function cleanPopup(popup) {
+    cleanInputErrors(popup, settingsObj)
+}

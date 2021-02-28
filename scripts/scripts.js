@@ -22,51 +22,40 @@ const popupView = document.querySelector('.popup_view');
 const view = popupView.querySelector('.view__photo');
 const text = popupView.querySelector('.view__text');
 
-function openPopup(popup) {
-
+function openPopup(popup, closeFuncClick, closeFuncKeydown) {
     popup.classList.add('popup_open');
-    popup.tabIndex = -1;
-    popup.addEventListener('click', closeMouseClick);
-    document.addEventListener('keydown', closeKeyDown);
+    popup.addEventListener('click', closeFuncClick);
+    document.addEventListener('keydown', (evt) => {
+        if (evt.key === "Escape") {
+            closeFuncKeydown(popup)
+        }
+    });
 }
 
-function closeKeyDown(evt) {
+function closeKeyDown(popup) {
+    cleanPopup(popup)
+    closePopup(popup)
+}
 
-    if (evt.key === "Escape") {
-        const openedPopup = document.querySelector('.popup_open')
-        if (openedPopup !== popupView) {
+function closeViewKeyDown(popup) {
+    closePopup(popup)
+}
 
-            closePopup(openedPopup)
-        } else {
-            popupView.classList.remove('popup_open');
-        }
+function closeViewMouseClick(evt) {
+    if (evt.target === evt.currentTarget) {
+        closePopup(evt.target)
     }
 }
 
 function closeMouseClick(evt) {
     if (evt.target === evt.currentTarget) {
-        if (evt.target !== popupView) {
-            closePopup(evt.target)
-        } else {
-            popupView.classList.remove('popup_open');
-        }
+        cleanPopup(evt.target)
+        closePopup(evt.target)
     }
 }
 
-function cleanValidate(popup) {
-
-    const cleanInput = popup.querySelector(".form__item");
-    const cleanError = popup.querySelector(`.${cleanInput.id}-error`);
-    cleanInput.classList.remove("form__item_type_error");
-    cleanError.classList.remove("form__item-error_visible");
-    cleanError.value = "";
-    console.log(cleanInput)
-    console.log(cleanError)
-
-}
-
 function closePopup(popup) {
-    cleanValidate(popup)
+
     popup.classList.remove('popup_open');
 
 }
@@ -75,6 +64,7 @@ function submitEditProfileForm(e) {
     e.preventDefault();
     profName.textContent = changeName.value;
     profession.textContent = changeProfession.value;
+    cleanPopup(popupProfile);
     closePopup(popupProfile);
 }
 
@@ -82,6 +72,7 @@ function submitAddCardForm(e) {
     e.preventDefault();
     const initialCardElement = createCard({ name: changeFormTitle.value, link: changeFormLink.value })
     photoGridList.prepend(initialCardElement)
+    cleanPopup(popupAdd);
     closePopup(popupAdd)
 }
 
@@ -95,26 +86,29 @@ function likeActive(e) {
     e.target.classList.toggle('photo-grid__like_active');
 }
 
-function resetForm(item) {
-    item.reset()
-}
 
 editBtn.addEventListener('click', (e) => {
     changeName.value = profName.textContent;
     changeProfession.value = profession.textContent;
-    openPopup(popupProfile)
+    openPopup(popupProfile, closeMouseClick, closeKeyDown)
 });
+
 addBtn.addEventListener('click', (e) => {
-    openPopup(popupAdd);
+    openPopup(popupAdd, closeMouseClick, closeKeyDown);
 
     changeFormTitle.value = ""
     changeFormLink.value = ""
 
 });
-editcloseBtn.addEventListener('click', (e) => { closePopup(popupProfile) });
-addcloseBtn.addEventListener('click', (e) => {
 
-    closePopup(popupAdd)
+editcloseBtn.addEventListener('click', (e) => {
+    cleanPopup(popupAdd);
+    closePopup(popupAdd);
+});
+
+addcloseBtn.addEventListener('click', (e) => {
+    cleanPopup(popupAdd);
+    closePopup(popupAdd);
 });
 
 form.addEventListener('submit', submitEditProfileForm);
@@ -152,7 +146,7 @@ const photoGridTemplate = document.querySelector('.photo-grid-template').content
 
 const viewcloseBtn = popupView.querySelector('button[name=close_view]');
 viewcloseBtn.addEventListener('click', (e) => {
-    popupView.classList.remove('popup_open');
+    closePopup(popupView);
 });
 
 function createCard(card) {
@@ -170,14 +164,14 @@ function createCard(card) {
     return newCard;
 }
 
-function render() {
+function renderInitialCards() {
     const htmlCard = initialCards.map(createCard)
     photoGridList.append(...htmlCard);
 }
 
 function openView(card) {
 
-    openPopup(popupView);
+    openPopup(popupView, closeViewMouseClick, closeViewKeyDown);
 
     view.src = card.link;
     view.alt = card.name;
@@ -185,4 +179,4 @@ function openView(card) {
 
 }
 
-render()
+renderInitialCards();
