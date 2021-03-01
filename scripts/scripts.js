@@ -22,41 +22,29 @@ const popupView = document.querySelector('.popup_view');
 const view = popupView.querySelector('.view__photo');
 const text = popupView.querySelector('.view__text');
 
-function openPopup(popup, closeFuncClick, closeFuncKeydown) {
+function openPopup(popup) {
     popup.classList.add('popup_open');
-    popup.addEventListener('click', closeFuncClick);
-    document.addEventListener('keydown', (evt) => {
-        if (evt.key === "Escape") {
-            closeFuncKeydown(popup)
-        }
-    });
+    popup.addEventListener('click', closeMouseClick);
+    document.addEventListener('keydown', (evt) => { closeKeyDown(evt, popup); });
 }
 
-function closeKeyDown(popup) {
-    cleanPopup(popup)
-    closePopup(popup)
-}
-
-function closeViewKeyDown(popup) {
-    closePopup(popup)
-}
-
-function closeViewMouseClick(evt) {
-    if (evt.target === evt.currentTarget) {
-        closePopup(evt.target)
+function closeKeyDown(evt, popup) {
+    if (evt.key === "Escape") {
+        closePopup(popup)
     }
 }
 
 function closeMouseClick(evt) {
     if (evt.target === evt.currentTarget) {
-        cleanPopup(evt.target)
         closePopup(evt.target)
     }
 }
 
 function closePopup(popup) {
-
+    popup.removeEventListener('click', closeMouseClick);
+    document.removeEventListener('keydown', closeKeyDown);
     popup.classList.remove('popup_open');
+
 
 }
 
@@ -88,26 +76,28 @@ function likeActive(e) {
 
 
 editBtn.addEventListener('click', (e) => {
+
     changeName.value = profName.textContent;
     changeProfession.value = profession.textContent;
-    openPopup(popupProfile, closeMouseClick, closeKeyDown)
+    cleanPopup(popupProfile);
+    openPopup(popupProfile)
 });
 
 addBtn.addEventListener('click', (e) => {
-    openPopup(popupAdd, closeMouseClick, closeKeyDown);
-
+    openPopup(popupAdd);
+    cleanPopup(popupAdd);
     changeFormTitle.value = ""
     changeFormLink.value = ""
 
 });
 
 editcloseBtn.addEventListener('click', (e) => {
-    cleanPopup(popupAdd);
-    closePopup(popupAdd);
+
+    closePopup(popupProfile);
 });
 
 addcloseBtn.addEventListener('click', (e) => {
-    cleanPopup(popupAdd);
+
     closePopup(popupAdd);
 });
 
@@ -171,7 +161,7 @@ function renderInitialCards() {
 
 function openView(card) {
 
-    openPopup(popupView, closeViewMouseClick, closeViewKeyDown);
+    openPopup(popupView);
 
     view.src = card.link;
     view.alt = card.name;
