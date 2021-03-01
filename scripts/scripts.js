@@ -25,11 +25,13 @@ const text = popupView.querySelector('.view__text');
 function openPopup(popup) {
     popup.classList.add('popup_open');
     popup.addEventListener('click', closeMouseClick);
-    document.addEventListener('keydown', (evt) => { closeKeyDown(evt, popup); });
+    document.addEventListener('keydown', closeKeyDown);
 }
 
-function closeKeyDown(evt, popup) {
+
+function closeKeyDown(evt) {
     if (evt.key === "Escape") {
+        const popup = document.querySelector('.popup_open')
         closePopup(popup)
     }
 }
