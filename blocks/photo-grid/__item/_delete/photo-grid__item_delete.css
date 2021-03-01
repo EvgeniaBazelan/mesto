@@ -1,13 +1,17 @@
-.photo-grid__item_delete {
-    position: absolute;
-    top: 18px;
-    right: 15px;
-    z-index: 2;
-    max-width: 18px;
-    min-height: 20px;
-    background-color: rgba(239, 239, 239, 0);
-    background-image: url(../../../../images/delete.svg);
-    background-size: cover;
-    background-position: center;
-    border: none;
-}
+    .photo-grid__item_delete {
+        z-index: 2;
+        background-image: url(../../../../images/delete.svg);
+        width: 18px;
+        height: 19.3px;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        border: none;
+        font: inherit;
+        color: inherit;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+    }
