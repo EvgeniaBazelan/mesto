@@ -159,6 +159,7 @@ function createCard(card) {
 function renderInitialCards() {
     const htmlCard = initialCards.map(createCard)
     photoGridList.append(...htmlCard);
+
 }
 
 function openView(card) {
