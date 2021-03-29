@@ -66,14 +66,7 @@ popupProfileFormValidator.enableValidation()
 const popupAddFormValidator = new FormValidator(settingsObj, popupAdd)
 popupAddFormValidator.enableValidation()
 
-function cleanInputErrors(formSelector, settingsObjParameter) {
-    const cleanInput = formSelector.querySelector(settingsObjParameter.inputSelector);
-    const cleanError = formSelector.querySelector(`.${cleanInput.id}-error`);
-    cleanInput.classList.remove(settingsObjParameter.inputErrorClass);
-    cleanError.classList.remove(settingsObjParameter.errorClass);
-    cleanError.value = "";
 
-}
 
 
 function cleanPopup(popup) {
@@ -109,6 +102,7 @@ function closeKeyDown(evt) {
 function closeMouseClick(evt) {
     if (evt.target === evt.currentTarget) {
         closePopup(evt.target)
+
     }
 }
 
@@ -172,34 +166,11 @@ viewcloseBtn.addEventListener('click', (e) => {
     closePopup(popupView);
 });
 
-/*function render(items, cardSelector) {
-    items.forEach((item) => {
-        const card = new Card(item, cardSelector, openView);
-        const cardElement = card.generateCard();
 
-        // Добавляем в DOM
-        document.querySelector(".photo-grid").append(cardElement);
-    });
-}*/
-
-/*function render(items, cardSelector) {
-    items.forEach((item) => {
-        const newcard = createCard(item, cardSelector, openView);
-        document.querySelector(".photo-grid").append(newcard);;
-    });
-};
-
-function createCard(item, cardSelector, openView) {
-    const card = new Card(item, cardSelector, openView);
-    return card.generateCard()
-}
-
-
-render(initialCards, ".photo-grid-template")*/
 function render(items) {
     items.forEach((item) => {
         const newcard = createCard(item);
-        document.querySelector(".photo-grid").append(newcard);;
+        photoGridList.append(newcard);
     });
 };
 
@@ -207,4 +178,4 @@ function createCard(item) {
     const card = new Card(item, ".photo-grid-template", openView);
     return card.generateCard()
 }
-render(initialCards)
+render(initialCards);
