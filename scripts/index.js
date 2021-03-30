@@ -69,9 +69,7 @@ popupAddFormValidator.enableValidation()
 
 
 
-function cleanPopup(popup) {
-    cleanInputErrors(popup, settingsObj)
-}
+
 
 
 
@@ -118,7 +116,7 @@ function submitEditProfileForm(e) {
     e.preventDefault();
     profName.textContent = changeName.value;
     profession.textContent = changeProfession.value;
-    cleanPopup(popupProfile);
+
     closePopup(popupProfile);
 }
 
@@ -126,7 +124,7 @@ function submitAddCardForm(e) {
     e.preventDefault();
     const initialCardElement = createCard({ name: changeFormTitle.value, link: changeFormLink.value })
     photoGridList.prepend(initialCardElement);
-    cleanPopup(popupAdd);
+
     closePopup(popupAdd)
 }
 
@@ -135,14 +133,14 @@ editBtn.addEventListener('click', (e) => {
 
     changeName.value = profName.textContent;
     changeProfession.value = profession.textContent;
-    cleanPopup(popupProfile);
+
     openPopup(popupProfile)
     popupProfileFormValidator.resetValidation()
 });
 
 addBtn.addEventListener('click', (e) => {
     openPopup(popupAdd);
-    cleanPopup(popupAdd);
+
     changeFormTitle.value = ""
     changeFormLink.value = ""
     popupAddFormValidator.resetValidation()
