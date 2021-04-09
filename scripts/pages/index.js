@@ -12,14 +12,14 @@ function openView(name, link) {
 
 }
 
-function openPopup(popup) {
+/*function openPopup(popup) {
     popup.classList.add('popup_open');
     popup.addEventListener('click', closeMouseClick);
     document.addEventListener('keydown', closeKeyDown);
-}
+}*/
 
 
-function closeKeyDown(evt) {
+/*function closeKeyDown(evt) {
     if (evt.key === "Escape") {
         const popup = document.querySelector('.popup_open')
         closePopup(popup)
@@ -31,15 +31,15 @@ function closeMouseClick(evt) {
         closePopup(evt.target)
 
     }
-}
+}*/
 
-function closePopup(popup) {
+/*function closePopup(popup) {
     popup.removeEventListener('click', closeMouseClick);
     document.removeEventListener('keydown', closeKeyDown);
     popup.classList.remove('popup_open');
 
 
-}
+}*/
 
 const CardList = new Section({
     data: initialCards,

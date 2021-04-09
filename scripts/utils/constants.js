@@ -48,3 +48,12 @@ export const initialCards = [{
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+export const settingsObj = {
+    formSelector: '.form',
+    inputSelector: '.form__item',
+    submitButtonSelector: '.form__button',
+    inactiveButtonClass: 'form__button_disabled',
+    inputErrorClass: 'form__item_type_error',
+    errorClass: 'form__item-error_visible'
+
+}
