@@ -21,7 +21,8 @@ export const addBtn = profile.querySelector('.profile__add-button');
 export const profName = profile.querySelector('.profile__name');
 export const profession = profile.querySelector('.profile__profession');
 
-export const popupProfile = document.querySelector('.popup_edit-profile');
+export const popupProfileForValid = document.querySelector('.popup_edit-profile');
+export const popupAddForValid = document.querySelector('.popup_add-place');
 export const popupAdd = document.querySelector('.popup_add-place');
 export const initialCards = [{
         name: 'Архыз',

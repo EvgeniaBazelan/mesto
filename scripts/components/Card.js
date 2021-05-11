@@ -1,11 +1,13 @@
 export default class Card {
-    constructor(obj, cardSelector, openView) {
-
-        this._title = obj.name
-        this._image = obj.link
-        this._alt = obj.name
+    constructor(data, handleCardClick, cardSelector) {
+        this._data = data;
+        this._title = data.name
+        this._image = data.link
+        this._alt = data.name
         this._cardSelector = cardSelector
-        this._openView = openView
+        this._handleCardClick = handleCardClick
+            //this._cardsItems = data
+
 
     }
 
@@ -37,8 +39,9 @@ export default class Card {
         return this._element
     }
     _setEventListeners() {
+        var viewHandler = this.handleClickCard.bind(this);
         this._element.querySelector(".photo-grid__view").addEventListener('click', () => {
-            this._openView(this._title, this._image); // откройте попап
+            viewHandler();
         });
         this._element.querySelector('.photo-grid__item_delete').addEventListener('click', () => {
             this._handleDeleteCard()
@@ -47,4 +50,8 @@ export default class Card {
             this._handleLikeIcon()
         });
     }
+    handleClickCard() {
+        this._handleCardClick(this._data)
+    }
+
 }

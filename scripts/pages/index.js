@@ -1,53 +1,71 @@
 import Section from '../components/Section.js';
 import Card from '../components/Card.js'
-import { cardListSelector, initialCards, popupView, view, text } from '../utils/constants.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn } from '../utils/constants.js'
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js'
+import FormValidator from '../components/FormValidator.js'
 
-function openView(name, link) {
 
-    openPopup(popupView);
+const user = new UserInfo({
+    userNameSelector: ".profile__name",
+    userInfoSelector: ".profile__profession"
+})
 
-    view.src = link;
-    view.alt = name;
-    text.textContent = name;
 
+const popupProfile = new PopupWithForm((data) => {
+    user.setUserInfo(data.name, data.profession)
+}, '.popup_edit-profile')
+
+function openPopupFunc() {
+    popupProfileFormValidator.resetValidation()
+    const userInfo = user.getUserInfo();
+    popupProfile.openWithFormData(userInfo);
+}
+editBtn.addEventListener('click', openPopupFunc)
+const popupProfileFormValidator = new FormValidator(settingsObj, popupProfileForValid)
+popupProfileFormValidator.enableValidation()
+
+
+function openView(item) {
+    const popupView = new PopupWithImage(item, '.popup_view')
+    popupView.openWithData(item)
 }
 
-/*function openPopup(popup) {
-    popup.classList.add('popup_open');
-    popup.addEventListener('click', closeMouseClick);
-    document.addEventListener('keydown', closeKeyDown);
-}*/
 
-
-/*function closeKeyDown(evt) {
-    if (evt.key === "Escape") {
-        const popup = document.querySelector('.popup_open')
-        closePopup(popup)
-    }
+function createCard(item) {
+    const card = new Card(item, openView, ".photo-grid-template");
+    return card.generateCard()
 }
 
-function closeMouseClick(evt) {
-    if (evt.target === evt.currentTarget) {
-        closePopup(evt.target)
-
-    }
-}*/
-
-/*function closePopup(popup) {
-    popup.removeEventListener('click', closeMouseClick);
-    document.removeEventListener('keydown', closeKeyDown);
-    popup.classList.remove('popup_open');
+function render(item) {
+    const cardElement = createCard(item);
+    console.log(cardElement)
+    CardList.addItem(cardElement);
 
 
-}*/
+};
 
-const CardList = new Section({
-    data: initialCards,
-    renderer: (initialCard) => {
-        const card = new Card(initialCard, ".photo-grid-template", openView);
-        const cardElement = card.generateCard();
-        CardList.setItem(cardElement);
-    }
-}, cardListSelector);
+
+const CardList = new Section(
+    initialCards,
+    render,
+    ".photo-grid");
+
+const popupAdd = new PopupWithForm((data) => {
+
+    const initialCardElement = createCard({ name: data.title, link: data.link })
+    CardList.addAtFirstItem(initialCardElement);
+
+}, '.popup_add-place')
+
+function AddOpenPopup() {
+    popupAddFormValidator.resetValidation()
+    popupAdd.open();
+}
+
+addBtn.addEventListener('click', AddOpenPopup)
+const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid)
+popupAddFormValidator.enableValidation()
 
 CardList.renderItems()

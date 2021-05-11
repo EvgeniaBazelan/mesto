@@ -2,33 +2,48 @@ export default class Popup {
     constructor(popupSelector) {
         //this._popupSelector = popupSelector
         this._popup = document.querySelector(popupSelector)
+
+        //this._openInternal.bind(this);
+        // this.close = this.close.bind(this);
+        //  this.open = this.open.bind(this);
     }
-    openPopup() {
+    open() {
         this._popup.classList.add('popup_open');
-        this._popup.addEventListener('click', this._closeMouseClick());
-        document.addEventListener('keydown', this._handleEscClose());
-
+        this.setEventListeners()
     }
-    closePopup() {
-        this._popup.classList.remove('popup_open');
-        this._popup.removeEventListener('click', this._closeMouseClick());
-        document.removeEventListener('keydown', this._handleEscClose());
+    close() {
 
+        this._popup.classList.remove('popup_open');
+        this._popup.removeEventListener('click', this._closeMouseClick.bind(this));
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
     _handleEscClose(evt) {
         if (evt.key === "Escape") {
             const popup = document.querySelector('.popup_open')
-            this.closePopup(popup)
+
+            this.close(popup)
         }
     }
     _closeMouseClick(evt) {
+        /*if (evt.target.className === 'popup')*/
         if (evt.target === evt.currentTarget) {
-            this.closePopup(evt.target)
+            /*this.closePopup()*/
+
+            this.close(evt.target)
 
         }
     }
+    _setInputValues(data) {
+        this._inputs.forEach((input) => {
+            input.value = data[input.name];
+        });
+    }
     setEventListeners() {
-        const closeButton = this._popup.querySelector(".popup__close")
-        closeButton.addEventListener('click', this.closePopup())
+
+        this._popup.querySelector(".popup__close").addEventListener('click', this.close.bind(this))
+        this._popup.addEventListener('click', this._closeMouseClick.bind(this));
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
+
+
     }
 }

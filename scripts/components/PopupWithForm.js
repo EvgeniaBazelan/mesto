@@ -1,61 +1,68 @@
 import Popup from './Popup.js'
-import FormValidator from './FormValidator.js'
+
 
 
 export default class PopupWithForm extends Popup {
-    constructor(submitForm, obj, popupSelector) {
+    constructor(handleFormSubmit, popupSelector) {
         super(popupSelector)
-        this._submitForm = submitForm
-        this._formSelector = obj.formSelector
-        this._inputSelector = obj.inputSelector
-        this._submitButtonSelector = obj.submitButtonSelector
+        this._handleFormSubmit = handleFormSubmit
+        this._form = this._popup.querySelector('.form')
+        this._inputs = this._form.querySelectorAll('.form__item')
+        this._submitBtn = this._form.querySelector('.form__button')
+        this._submitFunctionForBtn = this.submitFunction.bind(this)
+    }
 
-        this._form = this._popup.querySelector(this._formSelector)
-        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
-        this._buttonElement = this._form.querySelector(this._submitButtonSelector)
-    }
     _getInputValues() {
-        const formData = new FormData(document.querySelector(this._formSelector))
-        return formData
+        const data = {};
+        this._inputs.forEach((input) => {
+            data[input.name] = input.value;
+        });
+        return data;
     }
+
+    openWithFormData(data) {
+        super.open()
+        this._setInputValues(data)
+        this._submitBtn.disabled = true;
+        this._submitBtn.classList.add('form__button_disabled');
+
+
+    }
+    open() {
+        super.open()
+
+        this._submitBtn.disabled = true;
+        this._submitBtn.classList.add('form__button_disabled');
+
+
+    }
+
+
+    _setInputValues(data) {
+
+        this._inputs.forEach((input) => {
+            input.value = data[input.name];
+        });
+
+    }
+    submitFunction(evt) {
+        evt.preventDefault();
+        this._handleFormSubmit(this._getInputValues());
+
+        this.close();
+    }
+
     setEventListeners() {
-        super.setEventListeners()
-        this._form.addEventListener('submit', submitForm)
+        super.setEventListeners();
+
+        this._form.addEventListener('submit', this._submitFunctionForBtn);
+
     }
     close() {
-        const popupFormValidator = new FormValidator(Obj, this._popup)
-        popupFormValidator.resetValidation()
-        super.closePopup()
-
+        super.close();
+        //this._form.reset();
+        this._form.removeEventListener('submit', this._submitFunctionForBtn);
+        this._form.reset();
     }
 
 }
-
-
-/*var formElement = document.getElementById("myform_id");
-var formData = new FormData(formElement);
-
-Now you can use formData.get('foo'), for example.
-this._form.querySelector(`.${inputElement.id}-error`)
-const changeFormTitle = addFormElement.querySelector('input[name="title"]');
-const changeFormLink = addFormElement.querySelector('input[name=link]');
-
-this._inputList.forEach((inputElement) => {
-    this._hideInputError(inputElement)
-    this._toggleButtonState(this._buttonElement)
-});
-
-export const settingsObj = {
-    formSelector: '.form',
-    inputSelector: '.form__item',
-    submitButtonSelector: '.form__button',
-    inactiveButtonClass: 'form__button_disabled',
-    inputErrorClass: 'form__item_type_error',
-    errorClass: 'form__item-error_visible'
-
-}
-document.querySelector('form').addEventListener('submit', (e) => {
-  const formData = new FormData(e.target);
-  // Now you can use formData.get('foo'), for example.
-  // Don't forget e.preventDefault() if you want to stop normal form .submission
-});*/
