@@ -1,10 +1,10 @@
-import Section from '../components/Section.js';
-import Card from '../components/Card.js'
-import PopupWithImage from '../components/PopupWithImage.js'
-import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn } from '../utils/constants.js'
-import PopupWithForm from '../components/PopupWithForm.js';
-import UserInfo from '../components/UserInfo.js'
-import FormValidator from '../components/FormValidator.js'
+import Section from './scripts/components/Section.js';
+import Card from './scripts/components/Card.js'
+import PopupWithImage from './scripts/components/PopupWithImage.js'
+import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn } from './scripts/utils/constants.js'
+import PopupWithForm from './scripts/components/PopupWithForm.js';
+import UserInfo from './scripts/components/UserInfo.js'
+import FormValidator from './scripts/components/FormValidator.js'
 
 
 const user = new UserInfo({
