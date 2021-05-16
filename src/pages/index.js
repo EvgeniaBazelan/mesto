@@ -64,13 +64,13 @@ const popupAdd = new PopupWithForm((data) => {
 
 }, '.popup_add-place')
 
-function AddOpenPopup() {
+function addOpenPopup() {
     popupAddFormValidator.resetValidation()
     popupAdd.open();
     popupAdd.setEventListeners()
 }
 
-addBtn.addEventListener('click', AddOpenPopup)
+addBtn.addEventListener('click', addOpenPopup)
 const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid)
 popupAddFormValidator.enableValidation()
 
