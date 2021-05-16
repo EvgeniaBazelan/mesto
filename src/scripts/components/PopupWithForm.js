@@ -20,19 +20,27 @@ export default class PopupWithForm extends Popup {
         return data;
     }
 
-    openWithFormData(data) {
+    /*openWithFormData(data) {
         super.open()
         this._setInputValues(data)
         this._submitBtn.disabled = true;
         this._submitBtn.classList.add('form__button_disabled');
 
 
-    }
-    open() {
-        super.open()
+    }*/
+    open(data) {
+        //super.open()
 
-        this._submitBtn.disabled = true;
-        this._submitBtn.classList.add('form__button_disabled');
+        super.open()
+        if (data) {
+            this._setInputValues(data)
+        }
+
+
+
+
+        // this._submitBtn.disabled = true;
+        // this._submitBtn.classList.add('form__button_disabled');
 
 
     }
@@ -49,7 +57,7 @@ export default class PopupWithForm extends Popup {
         evt.preventDefault();
         this._handleFormSubmit(this._getInputValues());
 
-        this.close();
+        this._close();
     }
 
     setEventListeners() {
@@ -61,7 +69,7 @@ export default class PopupWithForm extends Popup {
     close() {
         super.close();
         //this._form.reset();
-        this._form.removeEventListener('submit', this._submitFunctionForBtn);
+        // this._form.removeEventListener('submit', this._submitFunctionForBtn);
         this._form.reset();
     }
 

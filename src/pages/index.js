@@ -21,16 +21,20 @@ const popupProfile = new PopupWithForm((data) => {
 function openPopupFunc() {
     popupProfileFormValidator.resetValidation()
     const userInfo = user.getUserInfo();
-    popupProfile.openWithFormData(userInfo);
+    popupProfile.open(userInfo);
+    popupProfile.setEventListeners()
 }
 editBtn.addEventListener('click', openPopupFunc)
 const popupProfileFormValidator = new FormValidator(settingsObj, popupProfileForValid)
 popupProfileFormValidator.enableValidation()
 
+const popupView = new PopupWithImage('.popup_view')
+popupView.setEventListeners()
 
 function openView(item) {
-    const popupView = new PopupWithImage(item, '.popup_view')
-    popupView.openWithData(item)
+    //  const popupView = new PopupWithImage( /*item,*/ '.popup_view')
+    popupView.open(item)
+        //  popupView.setEventListeners()
 }
 
 
@@ -63,6 +67,7 @@ const popupAdd = new PopupWithForm((data) => {
 function AddOpenPopup() {
     popupAddFormValidator.resetValidation()
     popupAdd.open();
+    popupAdd.setEventListeners()
 }
 
 addBtn.addEventListener('click', AddOpenPopup)
