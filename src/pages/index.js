@@ -46,13 +46,13 @@ function createCard(item) {
 function render(item) {
     const cardElement = createCard(item);
     console.log(cardElement)
-    CardList.addItem(cardElement);
+    cardList.addItem(cardElement);
 
 
 };
 
 
-const CardList = new Section(
+const cardList = new Section(
     initialCards,
     render,
     ".photo-grid");
@@ -60,7 +60,7 @@ const CardList = new Section(
 const popupAdd = new PopupWithForm((data) => {
 
     const initialCardElement = createCard({ name: data.title, link: data.link })
-    CardList.addAtFirstItem(initialCardElement);
+    cardList.addAtFirstItem(initialCardElement);
 
 }, '.popup_add-place')
 
@@ -74,4 +74,4 @@ addBtn.addEventListener('click', addOpenPopup)
 const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid)
 popupAddFormValidator.enableValidation()
 
-CardList.renderItems()
+cardList.renderItems()
