@@ -17,12 +17,13 @@ const user = new UserInfo({
 const popupProfile = new PopupWithForm((data) => {
     user.setUserInfo(data.name, data.profession)
 }, '.popup_edit-profile')
+popupProfile.setEventListeners()
 
 function openPopupFunc() {
     popupProfileFormValidator.resetValidation()
     const userInfo = user.getUserInfo();
     popupProfile.open(userInfo);
-    popupProfile.setEventListeners()
+
 }
 editBtn.addEventListener('click', openPopupFunc)
 const popupProfileFormValidator = new FormValidator(settingsObj, popupProfileForValid)
@@ -63,11 +64,12 @@ const popupAdd = new PopupWithForm((data) => {
     cardList.addAtFirstItem(initialCardElement);
 
 }, '.popup_add-place')
+popupAdd.setEventListeners()
 
 function addOpenPopup() {
     popupAddFormValidator.resetValidation()
     popupAdd.open();
-    popupAdd.setEventListeners()
+
 }
 
 addBtn.addEventListener('click', addOpenPopup)
