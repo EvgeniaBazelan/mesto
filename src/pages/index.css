@@ -18,6 +18,7 @@
 @import url(../blocks/popup/_add-place/popup_add-place.css);
 @import url(../blocks/popup/_edit-profile/popup_edit-profile.css);
 @import url(../blocks/popup/_view/popup_view.css);
+@import url(../blocks/popup/_confirm/popup_confirm.css);
 @import url(../blocks/form/_open/form_open.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__text/form__text.css);
