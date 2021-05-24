@@ -4,6 +4,10 @@
     grid-area: avatar;
     align-self: center;
     justify-self: left;
+    background-image: url(../../../images/Avatar.jpg);
+    width: 120px;
+    height: 120px;
+    position: relative;
 }
 
 @media all and (max-width:900px) {
