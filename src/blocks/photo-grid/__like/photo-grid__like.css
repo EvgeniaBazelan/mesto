@@ -1,6 +1,6 @@
 .photo-grid__like {
     grid-area: like;
-    margin: 0 20px 0 0;
+    margin: 20px 20px 0 0;
     background-image: url("../../../images/like (1).svg");
     background-size: cover;
     background-position: center;
