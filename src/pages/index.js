@@ -2,10 +2,11 @@ import './index.css'
 import Section from '../scripts/components/Section.js';
 import Card from '../scripts/components/Card.js'
 import PopupWithImage from '../scripts/components/PopupWithImage.js'
-import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn } from '../scripts/utils/constants.js'
+import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn, apiOptions } from '../scripts/utils/constants.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js'
 import FormValidator from '../scripts/components/FormValidator.js'
+import Api from '../scripts/components/Api.js'
 
 
 const user = new UserInfo({
@@ -39,25 +40,11 @@ function openView(item) {
 }
 
 
-function createCard(item) {
-    const card = new Card(item, openView, ".photo-grid-template");
-    return card.generateCard()
-}
 
-function render(item) {
-    const cardElement = createCard(item);
-    console.log(cardElement)
-    cardList.addItem(cardElement);
-
-
-};
-
-
-const cardList = new Section(
-    initialCards,
+/*const cardList = new Section(
+    studentsCards,
     render,
-    ".photo-grid");
-
+    ".photo-grid");*/
 const popupAdd = new PopupWithForm((data) => {
 
     const initialCardElement = createCard({ name: data.title, link: data.link })
@@ -72,8 +59,21 @@ function addOpenPopup() {
 
 }
 
-addBtn.addEventListener('click', addOpenPopup)
-const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid)
+addBtn.addEventListener('click', addOpenPopup);
+const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid);
 popupAddFormValidator.enableValidation()
 
-cardList.renderItems()
+/*cardList.renderItems()*/
+
+function createCard(item) {
+    const card = new Card(item, openView, ".photo-grid-template");
+    return card.generateCard()
+}
+
+const api = new Api(apiOptions)
+    /*let studentsCards = null*/
+const cardList = new Section(
+    createCard,
+    ".photo-grid");
+
+api.getInitialCards().then(cardList.renderItems.bind(cardList));

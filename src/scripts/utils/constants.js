@@ -58,3 +58,12 @@ export const settingsObj = {
     errorClass: 'form__item-error_visible'
 
 }
+export const apiOptions = {
+
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-24',
+    headers: {
+        'Authorization': '273efaae-b1d3-42d9-8ff4-bdc5ec6ddb09',
+        'Content-Type': 'application/json'
+    }
+
+}
