@@ -7,17 +7,22 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js'
 import FormValidator from '../scripts/components/FormValidator.js'
 import Api from '../scripts/components/Api.js'
-
+const api = new Api(apiOptions)
 
 const user = new UserInfo({
     userNameSelector: ".profile__name",
-    userInfoSelector: ".profile__profession"
+    userInfoSelector: ".profile__profession",
+    userAvatarSelector: ".profile__avatar"
 })
-
-
+api.getUserInfo().then((userInfo) => { user.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar) })
 const popupProfile = new PopupWithForm((data) => {
     user.setUserInfo(data.name, data.profession)
 }, '.popup_edit-profile')
+
+
+/*const popupProfile = new PopupWithForm((data) => {
+    user.setUserInfo(data.name, data.profession)
+}, '.popup_edit-profile')*/
 popupProfile.setEventListeners()
 
 function openPopupFunc() {
@@ -70,8 +75,8 @@ function createCard(item) {
     return card.generateCard()
 }
 
-const api = new Api(apiOptions)
-    /*let studentsCards = null*/
+
+/*let studentsCards = null*/
 const cardList = new Section(
     createCard,
     ".photo-grid");
