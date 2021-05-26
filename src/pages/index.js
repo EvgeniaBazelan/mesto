@@ -15,8 +15,10 @@ const user = new UserInfo({
     userAvatarSelector: ".profile__avatar"
 })
 api.getUserInfo().then((userInfo) => { user.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar) })
+
 const popupProfile = new PopupWithForm((data) => {
-    user.setUserInfo(data.name, data.profession)
+    api.changeUserInfo(data.name, data.profession).then((res) => { user.setUserInfoForm(res.name, res.about) })
+        /* user.setUserInfoForm(data.name, data.profession)*/
 }, '.popup_edit-profile')
 
 
