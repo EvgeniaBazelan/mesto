@@ -49,4 +49,23 @@ export default class Api {
             })
 
     }
+    postNewCard(cardName, cardLink) {
+        return fetch(`${this._baseUrl}/cards`, {
+                method: 'POST',
+                headers: this._headers,
+                body: JSON.stringify({
+                    name: cardName,
+                    link: cardLink
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    // если ошибка, отклоняем промис
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
+            })
+
+    }
 }

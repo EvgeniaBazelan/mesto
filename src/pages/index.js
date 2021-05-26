@@ -52,13 +52,7 @@ function openView(item) {
     studentsCards,
     render,
     ".photo-grid");*/
-const popupAdd = new PopupWithForm((data) => {
 
-    const initialCardElement = createCard({ name: data.title, link: data.link })
-    cardList.addAtFirstItem(initialCardElement);
-
-}, '.popup_add-place')
-popupAdd.setEventListeners()
 
 function addOpenPopup() {
     popupAddFormValidator.resetValidation()
@@ -83,4 +77,13 @@ const cardList = new Section(
     createCard,
     ".photo-grid");
 
+const popupAdd = new PopupWithForm((data) => {
+    api.postNewCard(data.title, data.link).then((res) => {
+            cardList.addAtFirstItem(createCard({ name: res.name, link: res.link }))
+        })
+        /*const initialCardElement = createCard({ name: data.title, link: data.link })
+        cardList.addAtFirstItem(initialCardElement);*/
+
+}, '.popup_add-place')
+popupAdd.setEventListeners()
 api.getInitialCards().then(cardList.renderItems.bind(cardList));
