@@ -1,11 +1,11 @@
-.profile__avatar_cover {
+.profile__cover {
     position: inherit;
     width: 100%;
     height: 100%;
 }
 
-.profile__avatar_cover:hover {
-    background-image: url(../../../../images/pencil.svg);
+.profile__cover:hover {
+    background-image: url(../../../images/pencil.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0.8);

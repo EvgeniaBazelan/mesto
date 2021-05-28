@@ -68,4 +68,4 @@ export const apiOptions = {
     }
 
 }
-export const changeAvatar = document.querySelector(".profile__avatar_cover")
+export const changeAvatar = document.querySelector(".profile__cover")
