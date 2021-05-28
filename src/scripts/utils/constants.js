@@ -23,6 +23,7 @@ export const profession = profile.querySelector('.profile__profession');
 
 export const popupProfileForValid = document.querySelector('.popup_edit-profile');
 export const popupAddForValid = document.querySelector('.popup_add-place');
+export const popupAvatarForValid = document.querySelector('.popup_update')
 export const popupAdd = document.querySelector('.popup_add-place');
 export const initialCards = [{
         name: 'Архыз',
@@ -67,3 +68,4 @@ export const apiOptions = {
     }
 
 }
+export const changeAvatar = document.querySelector(".profile__avatar_cover")

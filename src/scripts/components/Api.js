@@ -110,5 +110,22 @@ export default class Api {
                 }
             })
     }
+    changeAvatar(avatar) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+                method: 'PATCH',
+                headers: this._headers,
+                body: JSON.stringify({
+                    avatar: avatar
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    // если ошибка, отклоняем промис
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
+            })
+    }
 
 }

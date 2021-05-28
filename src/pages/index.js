@@ -2,12 +2,14 @@ import './index.css'
 import Section from '../scripts/components/Section.js';
 import Card from '../scripts/components/Card.js'
 import PopupWithImage from '../scripts/components/PopupWithImage.js'
-import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn, apiOptions } from '../scripts/utils/constants.js'
+import { initialCards, addBtn, editBtn, settingsObj, popupProfileForValid, popupAddForValid, saveBtn, apiOptions, changeAvatar, popupAvatarForValid } from '../scripts/utils/constants.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js'
 import FormValidator from '../scripts/components/FormValidator.js'
 import Api from '../scripts/components/Api.js'
+
 const api = new Api(apiOptions)
+
 
 const user = new UserInfo({
     userNameSelector: ".profile__name",
@@ -17,8 +19,9 @@ const user = new UserInfo({
 
 
 const popupProfile = new PopupWithForm((data) => {
-    api.changeUserInfo(data.name, data.profession).then((res) => { user.setUserInfoForm(res.name, res.about) })
-        /* user.setUserInfoForm(data.name, data.profession)*/
+    popupProfile.renderLoading(true)
+    api.changeUserInfo(data.name, data.profession).then((res) => { user.setUserInfoForm(res.name, res.about) }).finally(() => { popupProfile.renderLoading(false) })
+
 }, '.popup_edit-profile')
 popupProfile.setEventListeners()
 
@@ -90,12 +93,13 @@ const cardList = new Section(
 
 const popupAdd = new PopupWithForm(
     (data) => {
+        popupAdd.renderLoading(true)
         api.getUserInfo()
             .then(userInfo => userInfo._id)
             .then(myId => api.postNewCard(data.title, data.link)
                 .then(res => {
                     cardList.addAtFirstItem(createCard(res, myId))
-                }))
+                })).finally(() => { popupAdd.renderLoading(false) })
 
         /*const initialCardElement = createCard({ name: data.title, link: data.link })
         cardList.addAtFirstItem(initialCardElement);*/
@@ -118,6 +122,47 @@ function HandleDeleteCard(cardId) {
         popup.open()
     })
 }
+// const popupAvatar = new PopupWithForm((data) => {
+//         api.changeAvatar(data.link).then((res) => { user.setUserInfoForAvatar(res.avatar) })
+//             /* api.getUserInfo()
+//                  .then(userInfo => { return userInfo.avatar })
+//                  .then(avatar => {
+//                      return api.changeAvatar(avatar, data.link).then(avatar => new Promise(resolves => {
+//                          resolves({
+//                              avatar: avatar,
+//                              userAvatar: data.link
+//                          })
+//                      }))
+//                  })
+//                  .then((res) => { user.setUserInfoForAvatar(res.avatar) })*/
+//     },
+//     ".popup_update",
+//     () => {
+//         popup.removeEventListeners();
+//         rejectes({})
+//     }
+// )
+
+
+const popupAvatar = new PopupWithForm((data) => { api.changeAvatar(data.link).then((res) => { user.setUserInfoForAvatar(res.avatar) }).finally(() => { popupAvatar.renderLoading(false) }) },
+    ".popup_update",
+    () => {
+        popupAvatar.removeEventListeners();
+        rejectes({})
+    }
+)
+
+function openPopupFuncAvatar() {
+    popupAvatarFormValidator.resetValidation()
+
+    popupAvatar.open();
+
+}
+const popupAvatarFormValidator = new FormValidator(settingsObj, popupAvatarForValid)
+popupAvatarFormValidator.enableValidation()
+
+changeAvatar.addEventListener('click', openPopupFuncAvatar) //popupAvatar.open.bind(popupAvatar))
+popupAvatar.setEventListeners()
 
 api.getUserInfo().then((userInfo) => {
     user.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar)
