@@ -68,4 +68,47 @@ export default class Api {
             })
 
     }
+    like(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                method: 'PUT',
+                headers: this._headers,
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    // если ошибка, отклоняем промис
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
+            })
+    }
+    dislike(cardId) {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                method: 'DELETE',
+                headers: this._headers,
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    // если ошибка, отклоняем промис
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
+            })
+    }
+    deleteMyCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+                method: 'DELETE',
+                headers: this._headers,
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    // если ошибка, отклоняем промис
+                    return Promise.reject(`Ошибка: ${res.status}`);
+                }
+            })
+    }
+
 }

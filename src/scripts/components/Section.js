@@ -15,11 +15,11 @@ export default class Section {
         //   this._container.innerHTML = '';
     }
 
-    renderItems(items) {
+    renderItems({ cards, myId }) {
         this.clear();
         const x = this;
-        items.forEach((item) => {
-            x.addItem(x._renderer(item, x));
+        cards.forEach((item) => {
+            x.addItem(x._renderer(item, myId, x));
         })
 
     }

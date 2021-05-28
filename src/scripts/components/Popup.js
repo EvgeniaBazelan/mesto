@@ -49,4 +49,10 @@ export default class Popup {
 
 
     }
+
+    removeEventListener() {
+        this._popup.querySelector(".popup__close").addEventListener('click', this._closeB)
+        this._popup.addEventListener('click', this._closeMouseClickB);
+
+    }
 }
