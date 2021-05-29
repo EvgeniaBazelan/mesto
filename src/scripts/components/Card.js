@@ -89,11 +89,7 @@ export default class Card {
         });
         this._element.querySelector('.photo-grid__item_delete').addEventListener('click', () => {
             if (x._createdByMe) {
-                x._handleDeleteCard(x._id).then(_ => {
-                    x._element.remove()
-                }).catch(() => {
-                    //confirmation dialog closed
-                })
+                x._handleDeleteCard(x._id, x._element)
             }
         });
         this._element.querySelector('.photo-grid__like').addEventListener('click', () => {

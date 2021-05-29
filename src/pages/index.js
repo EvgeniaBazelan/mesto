@@ -8,6 +8,16 @@ import UserInfo from '../scripts/components/UserInfo.js'
 import FormValidator from '../scripts/components/FormValidator.js'
 import Api from '../scripts/components/Api.js'
 
+let userId = null
+const getMyUserId = new Promise((resolves, rejectes) => {
+        if (userId &&
+            userId.length > 0)
+            resolves(userId)
+        else
+            rejectes()
+    })
+    .catch(_ => api.getUserInfo().then(res => userId = res._id))
+
 const api = new Api(apiOptions)
 
 const user = new UserInfo({
@@ -19,15 +29,13 @@ const user = new UserInfo({
 
 const popupProfile = new PopupWithForm((data) => {
     popupProfile.renderLoading(true)
-    api.changeUserInfo(data.name, data.profession).then((res) => { user.setUserInfoForm(res.name, res.about) }).finally(() => { popupProfile.renderLoading(false) })
+    api.changeUserInfo(data.name, data.profession).then((res) => {
+        user.setUserInfoForm(res.name, res.about)
+        popupProfile.close()
+    }).finally(() => { popupProfile.renderLoading(false) })
 
 }, '.popup_edit-profile')
 popupProfile.setEventListeners()
-
-/*const popupProfile = new PopupWithForm((data) => {
-    user.setUserInfo(data.name, data.profession)
-}, '.popup_edit-profile')*/
-
 
 function openPopupFunc() {
     popupProfileFormValidator.resetValidation()
@@ -43,18 +51,8 @@ const popupView = new PopupWithImage('.popup_view')
 popupView.setEventListeners()
 
 function openView(item) {
-    //  const popupView = new PopupWithImage( /*item,*/ '.popup_view')
     popupView.open(item)
-        //  popupView. ()
 }
-
-
-
-/*const cardList = new Section(
-    studentsCards,
-    render,
-    ".photo-grid");*/
-
 
 function addOpenPopup() {
     popupAddFormValidator.resetValidation()
@@ -66,10 +64,10 @@ addBtn.addEventListener('click', addOpenPopup);
 const popupAddFormValidator = new FormValidator(settingsObj, popupAddForValid);
 popupAddFormValidator.enableValidation()
 
-/*cardList.renderItems()*/
+
 
 function createCard(item, myId) {
-    const card = new Card(item, openView, myId, ".photo-grid-template", LikeDislike, HandleDeleteCard);
+    const card = new Card(item, openView, myId, ".photo-grid-template", LikeDislike, handleDeleteCard);
     return card.generateCard()
 }
 
@@ -85,7 +83,7 @@ function LikeDislike(liked, id) {
         })
 }
 
-/*let studentsCards = null*/
+
 const cardList = new Section(
     createCard,
     ".photo-grid");
@@ -93,11 +91,11 @@ const cardList = new Section(
 const popupAdd = new PopupWithForm(
     (data) => {
         popupAdd.renderLoading(true)
-        api.getUserInfo()
-            .then(userInfo => userInfo._id)
+        getMyUserId
             .then(myId => api.postNewCard(data.title, data.link)
                 .then(res => {
                     cardList.addAtFirstItem(createCard(res, myId))
+                    popupAdd.close()
                 })).finally(() => { popupAdd.renderLoading(false) })
 
         /*const initialCardElement = createCard({ name: data.title, link: data.link })
@@ -106,48 +104,32 @@ const popupAdd = new PopupWithForm(
     }, '.popup_add-place')
 popupAdd.setEventListeners()
 
-function HandleDeleteCard(cardId) {
-    return new Promise((resolves, rejectes) => {
-        const popup = new PopupWithForm(() => {
-            api.deleteMyCard(cardId).then(_ => {
-                popup.removeEventListeners();
-                resolves({})
-            })
-        }, ".popup_confirm", () => {
+function handleDeleteCard(cardId, element) {
+    const popup = new PopupWithForm(() => {
+        popup.renderLoading(true)
+        api.deleteMyCard(cardId).then(_ => {
             popup.removeEventListeners();
-            rejectes({})
-        })
-        popup.setEventListeners()
-        popup.open()
+            element.remove()
+            popup.close()
+        }).finally(() => { popup.renderLoading(false) })
+    }, ".popup_confirm", () => {
+        popup.removeEventListeners();
     })
+    popup.setEventListeners()
+    popup.open()
+
 }
-// const popupAvatar = new PopupWithForm((data) => {
-//         api.changeAvatar(data.link).then((res) => { user.setUserInfoForAvatar(res.avatar) })
-//             /* api.getUserInfo()
-//                  .then(userInfo => { return userInfo.avatar })
-//                  .then(avatar => {
-//                      return api.changeAvatar(avatar, data.link).then(avatar => new Promise(resolves => {
-//                          resolves({
-//                              avatar: avatar,
-//                              userAvatar: data.link
-//                          })
-//                      }))
-//                  })
-//                  .then((res) => { user.setUserInfoForAvatar(res.avatar) })*/
-//     },
-//     ".popup_update",
-//     () => {
-//         popup.removeEventListeners();
-//         rejectes({})
-//     }
-// )
 
-
-const popupAvatar = new PopupWithForm((data) => { api.changeAvatar(data.link).then((res) => { user.setUserInfoForAvatar(res.avatar) }).finally(() => { popupAvatar.renderLoading(false) }) },
+const popupAvatar = new PopupWithForm((data) => {
+        popupAvatar.renderLoading(true)
+        api.changeAvatar(data.link).then((res) => {
+            user.setUserInfoForAvatar(res.avatar)
+            popupAvatar.close()
+        }).finally(() => { popupAvatar.renderLoading(false) })
+    },
     ".popup_update",
     () => {
         popupAvatar.removeEventListeners();
-        rejectes({})
     }
 )
 
@@ -160,13 +142,12 @@ function openPopupFuncAvatar() {
 const popupAvatarFormValidator = new FormValidator(settingsObj, popupAvatarForValid)
 popupAvatarFormValidator.enableValidation()
 
-changeAvatar.addEventListener('click', openPopupFuncAvatar) //popupAvatar.open.bind(popupAvatar))
+changeAvatar.addEventListener('click', openPopupFuncAvatar)
 popupAvatar.setEventListeners()
 
 api.getUserInfo().then((userInfo) => {
     user.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar)
-    return userInfo._id
-
+    return userId = userInfo._id
 }).then(myId => {
     return api.getInitialCards().then(cards => new Promise(resolves => {
         resolves({
