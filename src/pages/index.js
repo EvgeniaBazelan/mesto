@@ -10,7 +10,6 @@ import Api from '../scripts/components/Api.js'
 
 const api = new Api(apiOptions)
 
-
 const user = new UserInfo({
     userNameSelector: ".profile__name",
     userInfoSelector: ".profile__profession",
