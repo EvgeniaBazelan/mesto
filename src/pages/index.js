@@ -9,14 +9,14 @@ import FormValidator from '../scripts/components/FormValidator.js'
 import Api from '../scripts/components/Api.js'
 
 let userId = null
-const getMyUserId = new Promise((resolves, rejectes) => {
-        if (userId &&
-            userId.length > 0)
-            resolves(userId)
-        else
-            rejectes()
-    })
-    .catch(_ => api.getUserInfo().then(res => userId = res._id))
+    /*const getMyUserId = new Promise((resolves, rejectes) => {
+            if (userId &&
+                userId.length > 0)
+                resolves(userId)
+            else
+                rejectes()
+        })
+        .catch(_ => api.getUserInfo().then(res => userId = res._id))*/
 
 const api = new Api(apiOptions)
 
@@ -67,12 +67,12 @@ popupAddFormValidator.enableValidation()
 
 
 function createCard(item, myId) {
-    const card = new Card(item, openView, myId, ".photo-grid-template", LikeDislike, handleDeleteCard);
+    const card = new Card(item, openView, myId, ".photo-grid-template", toggleLikeCard, handleDeleteCard);
     return card.generateCard()
 }
 
 
-function LikeDislike(liked, id) {
+function toggleLikeCard(liked, id) {
     if (liked)
         return api.like(id).then((data) => {
             return data.likes
@@ -91,12 +91,18 @@ const cardList = new Section(
 const popupAdd = new PopupWithForm(
     (data) => {
         popupAdd.renderLoading(true)
-        getMyUserId
-            .then(myId => api.postNewCard(data.title, data.link)
-                .then(res => {
-                    cardList.addAtFirstItem(createCard(res, myId))
-                    popupAdd.close()
-                })).finally(() => { popupAdd.renderLoading(false) })
+        api.postNewCard(data.title, data.link).then((res) => {
+            cardList.addAtFirstItem(createCard(res, userId))
+            popupAdd.close()
+        }).finally(() => { popupAdd.renderLoading(false) })
+
+        /*getMyUserId
+        .then(userId =>
+            api.postNewCard(data.title, data.link)
+            .then(res => {
+                cardList.addAtFirstItem(createCard(res, userId))
+                popupAdd.close()
+            })).finally(() => { popupAdd.renderLoading(false) })*/
 
         /*const initialCardElement = createCard({ name: data.title, link: data.link })
         cardList.addAtFirstItem(initialCardElement);*/

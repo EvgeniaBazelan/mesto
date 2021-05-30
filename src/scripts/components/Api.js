@@ -39,7 +39,8 @@ export default class Api {
                 headers: this._headers,
                 body: JSON.stringify({
                     name: cardName,
-                    link: cardLink
+                    link: cardLink,
+
                 })
             })
             .then(this._handleResponse);
